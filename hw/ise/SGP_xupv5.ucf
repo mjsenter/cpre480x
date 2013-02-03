@@ -1,0 +1,811 @@
+############################################################################
+# Michael Steffen
+# Joseph Zambreno
+# Department of Electrical and Computer Engineering
+# Iowa State University
+############################################################################ 
+
+# SGP_xupv5.ucf
+############################################################################
+# DESCRIPTION: This file contains the user constraints that tie individual
+# pins to components on the Xilinx XUPV5-LX110T board. Don't change this 
+# unless you really know what you're doing.
+#
+# NOTES:
+# 07/24/10 by JAZ::Design created. 
+############################################################################
+
+
+############################################################################
+# Clock constraints                                                        #
+############################################################################
+
+NET "u_system/G1.u_ddr2Interface/u_ddr2_infrastructure/sys_clk_ibufg" TNM_NET = "SYS_CLK";
+TIMESPEC TS_SYS_CLK = PERIOD "SYS_CLK" 5 ns HIGH 50 %;
+
+NET "u_system/G1.u_ddr2Interface/u_ddr2_infrastructure/clk200_ibufg" TNM_NET = "SYS_CLK_200";
+TIMESPEC TS_SYS_CLK_200 = PERIOD "SYS_CLK_200" 5 ns HIGH 50 %;
+
+NET "u_system/G1.u_ddr2Interface/u_ddr2_infrastructure/clk0_bufg_in" TNM_NET = "SYS_CLK_0";
+TIMESPEC TS_SYS_CLK_0 = PERIOD "SYS_CLK_0" 5 ns HIGH 50 %;
+
+NET "clk100" TNM_NET = "clk100";
+TIMESPEC TS_clk100 = PERIOD "clk100" 10 ns HIGH 50%;
+
+#############################################################################
+# I/O STANDARDS (ADD IF NOT DEFAULT 3.3V)
+#############################################################################
+
+NET "sys_clk_p" DIFF_TERM = TRUE;
+NET "sys_clk_p" IOSTANDARD = LVDS_25;
+NET "sys_clk_n" DIFF_TERM = TRUE;
+NET "sys_clk_n" IOSTANDARD = LVDS_25;
+NET "clk200_p" DIFF_TERM = TRUE;
+NET "clk200_p" IOSTANDARD = LVDS_25;
+NET "clk200_n" DIFF_TERM = TRUE;
+NET "clk200_n" IOSTANDARD = LVDS_25;
+NET "sys_rst_n" IOSTANDARD = LVCMOS18;
+
+NET "debug_LED[0]" IOSTANDARD = LVCMOS25;
+NET "debug_LED[1]" IOSTANDARD = LVCMOS25;
+NET "debug_LED[2]" IOSTANDARD = LVCMOS25;
+
+NET "SCL" IOSTANDARD = LVCMOS18;
+NET "SDA" IOSTANDARD = LVCMOS18;
+
+NET "ddr2_dq[0]" IOSTANDARD = SSTL18_II_DCI;
+NET "ddr2_dq[10]" IOSTANDARD = SSTL18_II_DCI;
+NET "ddr2_dq[11]" IOSTANDARD = SSTL18_II_DCI;
+NET "ddr2_dq[12]" IOSTANDARD = SSTL18_II_DCI;
+NET "ddr2_dq[13]" IOSTANDARD = SSTL18_II_DCI;
+NET "ddr2_dq[14]" IOSTANDARD = SSTL18_II_DCI;
+NET "ddr2_dq[15]" IOSTANDARD = SSTL18_II_DCI;
+NET "ddr2_dq[16]" IOSTANDARD = SSTL18_II_DCI;
+NET "ddr2_dq[17]" IOSTANDARD = SSTL18_II_DCI;
+NET "ddr2_dq[18]" IOSTANDARD = SSTL18_II_DCI;
+NET "ddr2_dq[19]" IOSTANDARD = SSTL18_II_DCI;
+NET "ddr2_dq[1]" IOSTANDARD = SSTL18_II_DCI;
+NET "ddr2_dq[20]" IOSTANDARD = SSTL18_II_DCI;
+NET "ddr2_dq[21]" IOSTANDARD = SSTL18_II_DCI;
+NET "ddr2_dq[22]" IOSTANDARD = SSTL18_II_DCI;
+NET "ddr2_dq[23]" IOSTANDARD = SSTL18_II_DCI;
+NET "ddr2_dq[24]" IOSTANDARD = SSTL18_II_DCI;
+NET "ddr2_dq[25]" IOSTANDARD = SSTL18_II_DCI;
+NET "ddr2_dq[26]" IOSTANDARD = SSTL18_II_DCI;
+NET "ddr2_dq[27]" IOSTANDARD = SSTL18_II_DCI;
+NET "ddr2_dq[28]" IOSTANDARD = SSTL18_II_DCI;
+NET "ddr2_dq[29]" IOSTANDARD = SSTL18_II_DCI;
+NET "ddr2_dq[2]" IOSTANDARD = SSTL18_II_DCI;
+NET "ddr2_dq[30]" IOSTANDARD = SSTL18_II_DCI;
+NET "ddr2_dq[31]" IOSTANDARD = SSTL18_II_DCI;
+NET "ddr2_dq[32]" IOSTANDARD = SSTL18_II_DCI;
+NET "ddr2_dq[33]" IOSTANDARD = SSTL18_II_DCI;
+NET "ddr2_dq[34]" IOSTANDARD = SSTL18_II_DCI;
+NET "ddr2_dq[35]" IOSTANDARD = SSTL18_II_DCI;
+NET "ddr2_dq[36]" IOSTANDARD = SSTL18_II_DCI;
+NET "ddr2_dq[37]" IOSTANDARD = SSTL18_II_DCI;
+NET "ddr2_dq[38]" IOSTANDARD = SSTL18_II_DCI;
+NET "ddr2_dq[39]" IOSTANDARD = SSTL18_II_DCI;
+NET "ddr2_dq[3]" IOSTANDARD = SSTL18_II_DCI;
+NET "ddr2_dq[40]" IOSTANDARD = SSTL18_II_DCI;
+NET "ddr2_dq[41]" IOSTANDARD = SSTL18_II_DCI;
+NET "ddr2_dq[42]" IOSTANDARD = SSTL18_II_DCI;
+NET "ddr2_dq[43]" IOSTANDARD = SSTL18_II_DCI;
+NET "ddr2_dq[44]" IOSTANDARD = SSTL18_II_DCI;
+NET "ddr2_dq[45]" IOSTANDARD = SSTL18_II_DCI;
+NET "ddr2_dq[46]" IOSTANDARD = SSTL18_II_DCI;
+NET "ddr2_dq[47]" IOSTANDARD = SSTL18_II_DCI;
+NET "ddr2_dq[48]" IOSTANDARD = SSTL18_II_DCI;
+NET "ddr2_dq[49]" IOSTANDARD = SSTL18_II_DCI;
+NET "ddr2_dq[4]" IOSTANDARD = SSTL18_II_DCI;
+NET "ddr2_dq[50]" IOSTANDARD = SSTL18_II_DCI;
+NET "ddr2_dq[51]" IOSTANDARD = SSTL18_II_DCI;
+NET "ddr2_dq[52]" IOSTANDARD = SSTL18_II_DCI;
+NET "ddr2_dq[53]" IOSTANDARD = SSTL18_II_DCI;
+NET "ddr2_dq[54]" IOSTANDARD = SSTL18_II_DCI;
+NET "ddr2_dq[55]" IOSTANDARD = SSTL18_II_DCI;
+NET "ddr2_dq[56]" IOSTANDARD = SSTL18_II_DCI;
+NET "ddr2_dq[57]" IOSTANDARD = SSTL18_II_DCI;
+NET "ddr2_dq[58]" IOSTANDARD = SSTL18_II_DCI;
+NET "ddr2_dq[59]" IOSTANDARD = SSTL18_II_DCI;
+NET "ddr2_dq[5]" IOSTANDARD = SSTL18_II_DCI;
+NET "ddr2_dq[60]" IOSTANDARD = SSTL18_II_DCI;
+NET "ddr2_dq[61]" IOSTANDARD = SSTL18_II_DCI;
+NET "ddr2_dq[62]" IOSTANDARD = SSTL18_II_DCI;
+NET "ddr2_dq[63]" IOSTANDARD = SSTL18_II_DCI;
+NET "ddr2_dq[6]" IOSTANDARD = SSTL18_II_DCI;
+NET "ddr2_dq[7]" IOSTANDARD = SSTL18_II_DCI;
+NET "ddr2_dq[8]" IOSTANDARD = SSTL18_II_DCI;
+NET "ddr2_dq[9]" IOSTANDARD = SSTL18_II_DCI;
+NET "ddr2_a[0]" IOSTANDARD = SSTL18_II;
+NET "ddr2_a[1]" IOSTANDARD = SSTL18_II;
+NET "ddr2_a[2]" IOSTANDARD = SSTL18_II;
+NET "ddr2_a[3]" IOSTANDARD = SSTL18_II;
+NET "ddr2_a[4]" IOSTANDARD = SSTL18_II;
+NET "ddr2_a[5]" IOSTANDARD = SSTL18_II;
+NET "ddr2_a[6]" IOSTANDARD = SSTL18_II;
+NET "ddr2_a[7]" IOSTANDARD = SSTL18_II;
+NET "ddr2_a[8]" IOSTANDARD = SSTL18_II;
+NET "ddr2_a[9]" IOSTANDARD = SSTL18_II;
+NET "ddr2_a[10]" IOSTANDARD = SSTL18_II;
+NET "ddr2_a[11]" IOSTANDARD = SSTL18_II;
+NET "ddr2_a[12]" IOSTANDARD = SSTL18_II;
+NET "ddr2_ba[0]" IOSTANDARD = SSTL18_II;
+NET "ddr2_ba[1]" IOSTANDARD = SSTL18_II;
+NET "ddr2_ras_n" IOSTANDARD = SSTL18_II;
+NET "ddr2_cas_n" IOSTANDARD = SSTL18_II;
+NET "ddr2_we_n" IOSTANDARD = SSTL18_II;
+NET "ddr2_cs_n[0]" IOSTANDARD = SSTL18_II;
+NET "ddr2_odt[0]" IOSTANDARD = SSTL18_II;
+NET "ddr2_cke[0]" IOSTANDARD = SSTL18_II;
+NET "ddr2_dm[0]" IOSTANDARD = SSTL18_II;
+NET "ddr2_dm[1]" IOSTANDARD = SSTL18_II;
+NET "ddr2_dm[2]" IOSTANDARD = SSTL18_II;
+NET "ddr2_dm[3]" IOSTANDARD = SSTL18_II;
+NET "ddr2_dm[4]" IOSTANDARD = SSTL18_II;
+NET "ddr2_dm[5]" IOSTANDARD = SSTL18_II;
+NET "ddr2_dm[6]" IOSTANDARD = SSTL18_II;
+NET "ddr2_dm[7]" IOSTANDARD = SSTL18_II;
+NET "ddr2_dqs[0]" IOSTANDARD = DIFF_SSTL18_II_DCI;
+NET "ddr2_dqs[1]" IOSTANDARD = DIFF_SSTL18_II_DCI;
+NET "ddr2_dqs[2]" IOSTANDARD = DIFF_SSTL18_II_DCI;
+NET "ddr2_dqs[3]" IOSTANDARD = DIFF_SSTL18_II_DCI;
+NET "ddr2_dqs[4]" IOSTANDARD = DIFF_SSTL18_II_DCI;
+NET "ddr2_dqs[5]" IOSTANDARD = DIFF_SSTL18_II_DCI;
+NET "ddr2_dqs[6]" IOSTANDARD = DIFF_SSTL18_II_DCI;
+NET "ddr2_dqs[7]" IOSTANDARD = DIFF_SSTL18_II_DCI;
+NET "ddr2_dqs_n[0]" IOSTANDARD = DIFF_SSTL18_II_DCI;
+NET "ddr2_dqs_n[1]" IOSTANDARD = DIFF_SSTL18_II_DCI;
+NET "ddr2_dqs_n[2]" IOSTANDARD = DIFF_SSTL18_II_DCI;
+NET "ddr2_dqs_n[3]" IOSTANDARD = DIFF_SSTL18_II_DCI;
+NET "ddr2_dqs_n[4]" IOSTANDARD = DIFF_SSTL18_II_DCI;
+NET "ddr2_dqs_n[5]" IOSTANDARD = DIFF_SSTL18_II_DCI;
+NET "ddr2_dqs_n[6]" IOSTANDARD = DIFF_SSTL18_II_DCI;
+NET "ddr2_dqs_n[7]" IOSTANDARD = DIFF_SSTL18_II_DCI;
+NET "ddr2_ck[0]" IOSTANDARD = DIFF_SSTL18_II;
+NET "ddr2_ck[1]" IOSTANDARD = DIFF_SSTL18_II;
+NET "ddr2_ck_n[0]" IOSTANDARD = DIFF_SSTL18_II;
+NET "ddr2_ck_n[1]" IOSTANDARD = DIFF_SSTL18_II;
+
+##############################################################################
+# Location Constraints
+##############################################################################
+
+NET "sys_clk_n" LOC = H15;
+NET "sys_clk_p" LOC = H14;
+NET "clk200_n" LOC = K19;
+NET "clk200_p" LOC = L19;
+NET "clk100" LOC = AH15;
+NET "sys_rst_n" LOC = E9;
+
+NET  debug_LED[0]           LOC="H18";
+NET  debug_LED[1]           LOC="L18";
+NET  debug_LED[2]           LOC="G15";
+
+NET  PHY_RESET  LOC="J14";  
+
+
+## UART constraints
+NET "UART_RX" LOC = AG15;
+NET "UART_TX" LOC = AG20;
+
+## DVI constraints
+NET "DVI_D[0]" LOC = AB8;
+NET "DVI_D[1]" LOC = AC8;
+NET "DVI_D[2]" LOC = AN12;
+NET "DVI_D[3]" LOC = AP12;
+NET "DVI_D[4]" LOC = AA9;
+NET "DVI_D[5]" LOC = AA8;
+NET "DVI_D[6]" LOC = AM13;
+NET "DVI_D[7]" LOC = AN13;
+NET "DVI_D[8]" LOC = AA10;
+NET "DVI_D[9]" LOC = AB10;
+NET "DVI_D[10]" LOC = AP14;
+NET "DVI_D[11]" LOC = AN14;
+NET "DVI_DE" LOC = AE8;
+NET "DVI_HSYNC" LOC = AM12;
+NET "DVI_RESET_B" LOC = AK6;
+NET "DVI_VSYNC" LOC = AM11;
+NET "DVI_XCLK_N" LOC = AL10;
+NET "DVI_XCLK_P" LOC = AL11;
+NET "SCL" LOC = U27;
+NET "SDA" LOC = T29;
+
+
+## Ethernet constraints
+NET "u_host/u_ethInterface/CLK125" TNM_NET          = "clk_gtp";
+TIMEGRP  "v5_emac_v1_7_gtp_clk"            = "clk_gtp";
+TIMESPEC "TS_v5_emac_v1_7_gtp_clk"         = PERIOD "v5_emac_v1_7_gtp_clk" 8 ns HIGH 50 %;
+NET "u_host/u_ethInterface/CLIENT_CLK_0" TNM_NET    = "clk_client0"; 
+TIMEGRP  "v5_emac_v1_7_gtp_clk_client0"    = "clk_client0";
+TIMESPEC "TS_v5_emac_v1_7_gtp_clk_client0" = PERIOD "v5_emac_v1_7_gtp_clk_client0" 8 ns HIGH 50 %;
+
+NET "*GTP_DUAL_1000X_inst?RXRECCLK_0_BUFR" TNM_NET = "clk_rec_clk0";
+TIMEGRP  "v5_emac_v1_7_client_rec_clk0"                        = "clk_rec_clk0";
+TIMESPEC "TS_v5_emac_v1_7_rec_clk0"                            = PERIOD "v5_emac_v1_7_client_rec_clk0" 8 ns HIGH 50 %;
+
+INST "*GTP_DUAL_1000X_inst?rx_elastic_buffer_inst_0?rd_addr_gray_?" TNM = "rx_elastic_rd_to_wr_0";
+TIMESPEC "TS_rx_elastic_rd_to_wr_0" = FROM "rx_elastic_rd_to_wr_0" TO "clk_rec_clk0" 7.5 ns DATAPATHONLY;
+INST "*GTP_DUAL_1000X_inst?rx_elastic_buffer_inst_0?wr_addr_gray_?" TNM = "elastic_metastable_0";
+TIMESPEC "ts_elastic_meta_protect_0" = FROM "elastic_metastable_0" 5 ns DATAPATHONLY;
+
+INST "*GTP_DUAL_1000X_inst?rx_elastic_buffer_inst_0?rd_wr_addr_gray*" TNM = "rx_graycode_0";
+INST "*GTP_DUAL_1000X_inst?rx_elastic_buffer_inst_0?rd_occupancy*"    TNM = "rx_binary_0";
+TIMESPEC "ts_rx_buf_meta_protect_0" = FROM "rx_graycode_0" TO "rx_binary_0" 5 ns;
+
+INST "*client_side_FIFO_emac0?tx_fifo_i?rd_tran_frame_tog"    TNM = "tx_fifo_rd_to_wr_0";
+INST "*client_side_FIFO_emac0?tx_fifo_i?rd_retran_frame_tog"  TNM = "tx_fifo_rd_to_wr_0";
+INST "*client_side_FIFO_emac0?tx_fifo_i?rd_col_window_pipe_1" TNM = "tx_fifo_rd_to_wr_0";
+INST "*client_side_FIFO_emac0?tx_fifo_i?rd_addr_txfer*"       TNM = "tx_fifo_rd_to_wr_0";
+INST "*client_side_FIFO_emac0?tx_fifo_i?rd_txfer_tog"         TNM = "tx_fifo_rd_to_wr_0";
+INST "*client_side_FIFO_emac0?tx_fifo_i?wr_frame_in_fifo"     TNM = "tx_fifo_wr_to_rd_0";
+
+TIMESPEC "TS_tx_fifo_rd_to_wr_0" = FROM "tx_fifo_rd_to_wr_0" TO "v5_emac_v1_7_gtp_clk_client0" 8 ns DATAPATHONLY;
+TIMESPEC "TS_tx_fifo_wr_to_rd_0" = FROM "tx_fifo_wr_to_rd_0" TO "v5_emac_v1_7_gtp_clk_client0" 8 ns DATAPATHONLY;
+
+INST "*client_side_FIFO_emac0?tx_fifo_i?wr_tran_frame_tog"    TNM = "tx_metastable_0";
+INST "*client_side_FIFO_emac0?tx_fifo_i?wr_rd_addr*"          TNM = "tx_metastable_0";
+INST "*client_side_FIFO_emac0?tx_fifo_i?wr_txfer_tog"         TNM = "tx_metastable_0";
+INST "*client_side_FIFO_emac0?tx_fifo_i?frame_in_fifo"        TNM = "tx_metastable_0";
+INST "*client_side_FIFO_emac0?tx_fifo_i?wr_retran_frame_tog*" TNM = "tx_metastable_0";
+INST "*client_side_FIFO_emac0?tx_fifo_i?wr_col_window_pipe_0" TNM = "tx_metastable_0";
+
+TIMESPEC "ts_tx_meta_protect_0" = FROM "tx_metastable_0" 5 ns DATAPATHONLY;
+
+INST "*client_side_FIFO_emac0?tx_fifo_i?rd_addr_txfer*"       TNM = "tx_addr_rd_0";
+INST "*client_side_FIFO_emac0?tx_fifo_i?wr_rd_addr*"          TNM = "tx_addr_wr_0";
+TIMESPEC "TS_tx_fifo_addr_0" = FROM "tx_addr_rd_0" TO "tx_addr_wr_0" 10ns;
+
+INST "*client_side_FIFO_emac0?rx_fifo_i?wr_store_frame_tog"   TNM = "rx_fifo_wr_to_rd_0";
+INST "*client_side_FIFO_emac0?rx_fifo_i?rd_addr_gray*"        TNM = "rx_fifo_rd_to_wr_0";
+
+TIMESPEC "TS_rx_fifo_wr_to_rd_0" = FROM "rx_fifo_wr_to_rd_0" TO "v5_emac_v1_7_gtp_clk_client0" 8 ns DATAPATHONLY;
+TIMESPEC "TS_rx_fifo_rd_to_wr_0" = FROM "rx_fifo_rd_to_wr_0" TO "v5_emac_v1_7_gtp_clk_client0" 8 ns DATAPATHONLY;
+
+
+INST "*client_side_FIFO_emac0?rx_fifo_i?wr_rd_addr_gray_sync*" TNM = "rx_metastable_0";
+INST "*client_side_FIFO_emac0?rx_fifo_i?rd_store_frame_tog"    TNM = "rx_metastable_0";
+
+TIMESPEC "ts_rx_meta_protect_0" = FROM "rx_metastable_0" 5 ns;
+
+
+INST u_host/u_ethInterface/v5_emac_ll/* AREA_GROUP = AG_v5_emac ; # phjones added dut level
+AREA_GROUP "AG_v5_emac" RANGE = CLOCKREGION_X1Y2,CLOCKREGION_X1Y3 ;
+
+
+INST "*GTP_DUAL_1000X_inst?GTP_1000X?tile0_rocketio_wrapper_i?gtp_dual_i" LOC = "GTP_DUAL_X0Y4";
+
+NET  RXN_0            LOC="P1";    # Bank 112, MGTRXN0_112, GTP_DUAL_X0Y3
+NET  RXP_0            LOC="N1";    # Bank 112, MGTRXP0_112, GTP_DUAL_X0Y3
+NET  TXN_0           LOC="N2";    # Bank 112, MGTTXN0_112, GTP_DUAL_X0Y3
+NET  TXP_0           LOC="M2";    # Bank 112, MGTTXP0_112, GTP_DUAL_X0Y3
+NET  MGTCLK_N        LOC="P3";    # Bank 112, MGTREFCLKN_112, GTP_DUAL_X0Y3
+NET  MGTCLK_P        LOC="P4";    # Bank 112, MGTREFCLKP_112, GTP_DUAL_X0Y3
+
+
+
+
+
+## DDR2 location and timing constraints
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[0].u_iob_dq/u_idelay_dq" LOC = IODELAY_X0Y84;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[0].u_iob_dq/gen_stg2_sg1.u_iddr_dq" LOC = ILOGIC_X0Y84;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[0].u_iob_dq/u_oddr_dq" LOC = OLOGIC_X0Y84;
+NET "ddr2_dq[0]" LOC = AF30;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[1].u_iob_dq/gen_stg2_sg1.u_iddr_dq" LOC = ILOGIC_X0Y86;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[1].u_iob_dq/u_idelay_dq" LOC = IODELAY_X0Y86;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[1].u_iob_dq/u_oddr_dq" LOC = OLOGIC_X0Y86;
+NET "ddr2_dq[1]" LOC = AK31;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[2].u_iob_dq/gen_stg2_sg1.u_iddr_dq" LOC = ILOGIC_X0Y91;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[2].u_iob_dq/u_oddr_dq" LOC = OLOGIC_X0Y91;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[2].u_iob_dq/u_idelay_dq" LOC = IODELAY_X0Y91;
+NET "ddr2_dq[2]" LOC = AF31;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[3].u_iob_dq/u_oddr_dq" LOC = OLOGIC_X0Y93;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[3].u_iob_dq/u_idelay_dq" LOC = IODELAY_X0Y93;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[3].u_iob_dq/gen_stg2_sg1.u_iddr_dq" LOC = ILOGIC_X0Y93;
+NET "ddr2_dq[3]" LOC = AD30;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[4].u_iob_dq/u_idelay_dq" LOC = IODELAY_X0Y83;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[4].u_iob_dq/u_oddr_dq" LOC = OLOGIC_X0Y83;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[4].u_iob_dq/gen_stg2_sg1.u_iddr_dq" LOC = ILOGIC_X0Y83;
+NET "ddr2_dq[4]" LOC = AJ30;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[5].u_iob_dq/u_idelay_dq" LOC = IODELAY_X0Y85;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[5].u_iob_dq/gen_stg2_sg1.u_iddr_dq" LOC = ILOGIC_X0Y85;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[5].u_iob_dq/u_oddr_dq" LOC = OLOGIC_X0Y85;
+NET "ddr2_dq[5]" LOC = AF29;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[6].u_iob_dq/u_oddr_dq" LOC = OLOGIC_X0Y88;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[6].u_iob_dq/gen_stg2_sg1.u_iddr_dq" LOC = ILOGIC_X0Y88;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[6].u_iob_dq/u_idelay_dq" LOC = IODELAY_X0Y88;
+NET "ddr2_dq[6]" LOC = AD29;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[7].u_iob_dq/gen_stg2_sg1.u_iddr_dq" LOC = ILOGIC_X0Y89;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[7].u_iob_dq/u_oddr_dq" LOC = OLOGIC_X0Y89;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[7].u_iob_dq/u_idelay_dq" LOC = IODELAY_X0Y89;
+NET "ddr2_dq[7]" LOC = AE29;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[8].u_iob_dq/u_oddr_dq" LOC = OLOGIC_X0Y57;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[8].u_iob_dq/u_idelay_dq" LOC = IODELAY_X0Y57;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[8].u_iob_dq/gen_stg2_sg1.u_iddr_dq" LOC = ILOGIC_X0Y57;
+NET "ddr2_dq[8]" LOC = AH27;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[9].u_iob_dq/u_idelay_dq" LOC = IODELAY_X0Y64;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[9].u_iob_dq/u_oddr_dq" LOC = OLOGIC_X0Y64;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[9].u_iob_dq/gen_stg2_sg1.u_iddr_dq" LOC = ILOGIC_X0Y64;
+NET "ddr2_dq[9]" LOC = AF28;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[10].u_iob_dq/gen_stg2_sg1.u_iddr_dq" LOC = ILOGIC_X0Y66;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[10].u_iob_dq/u_idelay_dq" LOC = IODELAY_X0Y66;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[10].u_iob_dq/u_oddr_dq" LOC = OLOGIC_X0Y66;
+NET "ddr2_dq[10]" LOC = AH28;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[11].u_iob_dq/gen_stg2_sg1.u_iddr_dq" LOC = ILOGIC_X0Y68;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[11].u_iob_dq/u_oddr_dq" LOC = OLOGIC_X0Y68;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[11].u_iob_dq/u_idelay_dq" LOC = IODELAY_X0Y68;
+NET "ddr2_dq[11]" LOC = AA28;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[12].u_iob_dq/u_idelay_dq" LOC = IODELAY_X0Y52;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[12].u_iob_dq/gen_stg2_sg1.u_iddr_dq" LOC = ILOGIC_X0Y52;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[12].u_iob_dq/u_oddr_dq" LOC = OLOGIC_X0Y52;
+NET "ddr2_dq[12]" LOC = AG25;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[13].u_iob_dq/u_oddr_dq" LOC = OLOGIC_X0Y56;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[13].u_iob_dq/gen_stg2_sg1.u_iddr_dq" LOC = ILOGIC_X0Y56;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[13].u_iob_dq/u_idelay_dq" LOC = IODELAY_X0Y56;
+NET "ddr2_dq[13]" LOC = AJ26;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[14].u_iob_dq/u_oddr_dq" LOC = OLOGIC_X0Y67;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[14].u_iob_dq/gen_stg2_sg1.u_iddr_dq" LOC = ILOGIC_X0Y67;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[14].u_iob_dq/u_idelay_dq" LOC = IODELAY_X0Y67;
+NET "ddr2_dq[14]" LOC = AG28;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[15].u_iob_dq/gen_stg2_sg1.u_iddr_dq" LOC = ILOGIC_X0Y69;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[15].u_iob_dq/u_oddr_dq" LOC = OLOGIC_X0Y69;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[15].u_iob_dq/u_idelay_dq" LOC = IODELAY_X0Y69;
+NET "ddr2_dq[15]" LOC = AB28;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[16].u_iob_dq/u_idelay_dq" LOC = IODELAY_X0Y71;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[16].u_iob_dq/u_oddr_dq" LOC = OLOGIC_X0Y71;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[16].u_iob_dq/gen_stg2_sg1.u_iddr_dq" LOC = ILOGIC_X0Y71;
+NET "ddr2_dq[16]" LOC = AC28;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[17].u_iob_dq/gen_stg2_sg1.u_iddr_dq" LOC = ILOGIC_X0Y73;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[17].u_iob_dq/u_idelay_dq" LOC = IODELAY_X0Y73;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[17].u_iob_dq/u_oddr_dq" LOC = OLOGIC_X0Y73;
+NET "ddr2_dq[17]" LOC = AB25;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[18].u_iob_dq/gen_stg2_sg1.u_iddr_dq" LOC = ILOGIC_X0Y76;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[18].u_iob_dq/u_idelay_dq" LOC = IODELAY_X0Y76;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[18].u_iob_dq/u_oddr_dq" LOC = OLOGIC_X0Y76;
+NET "ddr2_dq[18]" LOC = AC27;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[19].u_iob_dq/u_idelay_dq" LOC = IODELAY_X0Y78;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[19].u_iob_dq/gen_stg2_sg1.u_iddr_dq" LOC = ILOGIC_X0Y78;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[19].u_iob_dq/u_oddr_dq" LOC = OLOGIC_X0Y78;
+NET "ddr2_dq[19]" LOC = AA26;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[20].u_iob_dq/gen_stg2_sg1.u_iddr_dq" LOC = ILOGIC_X0Y72;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[20].u_iob_dq/u_idelay_dq" LOC = IODELAY_X0Y72;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[20].u_iob_dq/u_oddr_dq" LOC = OLOGIC_X0Y72;
+NET "ddr2_dq[20]" LOC = AB26;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[21].u_iob_dq/gen_stg2_sg1.u_iddr_dq" LOC = ILOGIC_X0Y74;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[21].u_iob_dq/u_idelay_dq" LOC = IODELAY_X0Y74;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[21].u_iob_dq/u_oddr_dq" LOC = OLOGIC_X0Y74;
+NET "ddr2_dq[21]" LOC = AA24;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[22].u_iob_dq/u_oddr_dq" LOC = OLOGIC_X0Y77;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[22].u_iob_dq/u_idelay_dq" LOC = IODELAY_X0Y77;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[22].u_iob_dq/gen_stg2_sg1.u_iddr_dq" LOC = ILOGIC_X0Y77;
+NET "ddr2_dq[22]" LOC = AB27;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[23].u_iob_dq/u_oddr_dq" LOC = OLOGIC_X0Y79;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[23].u_iob_dq/u_idelay_dq" LOC = IODELAY_X0Y79;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[23].u_iob_dq/gen_stg2_sg1.u_iddr_dq" LOC = ILOGIC_X0Y79;
+NET "ddr2_dq[23]" LOC = AA25;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[24].u_iob_dq/u_idelay_dq" LOC = IODELAY_X0Y92;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[24].u_iob_dq/gen_stg2_sg1.u_iddr_dq" LOC = ILOGIC_X0Y92;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[24].u_iob_dq/u_oddr_dq" LOC = OLOGIC_X0Y92;
+NET "ddr2_dq[24]" LOC = AC29;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[25].u_iob_dq/u_idelay_dq" LOC = IODELAY_X0Y99;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[25].u_iob_dq/u_oddr_dq" LOC = OLOGIC_X0Y99;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[25].u_iob_dq/gen_stg2_sg1.u_iddr_dq" LOC = ILOGIC_X0Y99;
+NET "ddr2_dq[25]" LOC = AB30;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[26].u_iob_dq/gen_stg2_sg1.u_iddr_dq" LOC = ILOGIC_X0Y107;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[26].u_iob_dq/u_oddr_dq" LOC = OLOGIC_X0Y107;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[26].u_iob_dq/u_idelay_dq" LOC = IODELAY_X0Y107;
+NET "ddr2_dq[26]" LOC = W31;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[27].u_iob_dq/gen_stg2_sg1.u_iddr_dq" LOC = ILOGIC_X0Y111;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[27].u_iob_dq/u_oddr_dq" LOC = OLOGIC_X0Y111;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[27].u_iob_dq/u_idelay_dq" LOC = IODELAY_X0Y111;
+NET "ddr2_dq[27]" LOC = V30;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[28].u_iob_dq/gen_stg2_sg1.u_iddr_dq" LOC = ILOGIC_X0Y98;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[28].u_iob_dq/u_oddr_dq" LOC = OLOGIC_X0Y98;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[28].u_iob_dq/u_idelay_dq" LOC = IODELAY_X0Y98;
+NET "ddr2_dq[28]" LOC = AC30;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[29].u_iob_dq/gen_stg2_sg1.u_iddr_dq" LOC = ILOGIC_X0Y105;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[29].u_iob_dq/u_oddr_dq" LOC = OLOGIC_X0Y105;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[29].u_iob_dq/u_idelay_dq" LOC = IODELAY_X0Y105;
+NET "ddr2_dq[29]" LOC = W29;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[30].u_iob_dq/u_idelay_dq" LOC = IODELAY_X0Y108;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[30].u_iob_dq/u_oddr_dq" LOC = OLOGIC_X0Y108;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[30].u_iob_dq/gen_stg2_sg1.u_iddr_dq" LOC = ILOGIC_X0Y108;
+NET "ddr2_dq[30]" LOC = V27;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[31].u_iob_dq/u_idelay_dq" LOC = IODELAY_X0Y112;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[31].u_iob_dq/u_oddr_dq" LOC = OLOGIC_X0Y112;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[31].u_iob_dq/gen_stg2_sg1.u_iddr_dq" LOC = ILOGIC_X0Y112;
+NET "ddr2_dq[31]" LOC = W27;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[32].u_iob_dq/gen_stg2_sg1.u_iddr_dq" LOC = ILOGIC_X0Y104;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[32].u_iob_dq/u_oddr_dq" LOC = OLOGIC_X0Y104;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[32].u_iob_dq/u_idelay_dq" LOC = IODELAY_X0Y104;
+NET "ddr2_dq[32]" LOC = V29;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[33].u_iob_dq/gen_stg2_sg1.u_iddr_dq" LOC = ILOGIC_X0Y113;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[33].u_iob_dq/u_idelay_dq" LOC = IODELAY_X0Y113;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[33].u_iob_dq/u_oddr_dq" LOC = OLOGIC_X0Y113;
+NET "ddr2_dq[33]" LOC = Y27;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[34].u_iob_dq/u_oddr_dq" LOC = OLOGIC_X0Y117;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[34].u_iob_dq/u_idelay_dq" LOC = IODELAY_X0Y117;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[34].u_iob_dq/gen_stg2_sg1.u_iddr_dq" LOC = ILOGIC_X0Y117;
+NET "ddr2_dq[34]" LOC = Y26;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[35].u_iob_dq/u_idelay_dq" LOC = IODELAY_X0Y119;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[35].u_iob_dq/gen_stg2_sg1.u_iddr_dq" LOC = ILOGIC_X0Y119;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[35].u_iob_dq/u_oddr_dq" LOC = OLOGIC_X0Y119;
+NET "ddr2_dq[35]" LOC = W24;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[36].u_iob_dq/u_idelay_dq" LOC = IODELAY_X0Y109;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[36].u_iob_dq/u_oddr_dq" LOC = OLOGIC_X0Y109;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[36].u_iob_dq/gen_stg2_sg1.u_iddr_dq" LOC = ILOGIC_X0Y109;
+NET "ddr2_dq[36]" LOC = V28;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[37].u_iob_dq/u_oddr_dq" LOC = OLOGIC_X0Y114;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[37].u_iob_dq/u_idelay_dq" LOC = IODELAY_X0Y114;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[37].u_iob_dq/gen_stg2_sg1.u_iddr_dq" LOC = ILOGIC_X0Y114;
+NET "ddr2_dq[37]" LOC = W25;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[38].u_iob_dq/u_oddr_dq" LOC = OLOGIC_X0Y116;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[38].u_iob_dq/gen_stg2_sg1.u_iddr_dq" LOC = ILOGIC_X0Y116;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[38].u_iob_dq/u_idelay_dq" LOC = IODELAY_X0Y116;
+NET "ddr2_dq[38]" LOC = W26;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[39].u_iob_dq/u_idelay_dq" LOC = IODELAY_X0Y118;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[39].u_iob_dq/gen_stg2_sg1.u_iddr_dq" LOC = ILOGIC_X0Y118;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[39].u_iob_dq/u_oddr_dq" LOC = OLOGIC_X0Y118;
+NET "ddr2_dq[39]" LOC = V24;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[40].u_iob_dq/u_oddr_dq" LOC = OLOGIC_X0Y241;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[40].u_iob_dq/u_idelay_dq" LOC = IODELAY_X0Y241;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[40].u_iob_dq/gen_stg2_sg1.u_iddr_dq" LOC = ILOGIC_X0Y241;
+NET "ddr2_dq[40]" LOC = R24;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[41].u_iob_dq/u_oddr_dq" LOC = OLOGIC_X0Y243;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[41].u_iob_dq/gen_stg2_sg1.u_iddr_dq" LOC = ILOGIC_X0Y243;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[41].u_iob_dq/u_idelay_dq" LOC = IODELAY_X0Y243;
+NET "ddr2_dq[41]" LOC = P25;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[42].u_iob_dq/gen_stg2_sg1.u_iddr_dq" LOC = ILOGIC_X0Y245;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[42].u_iob_dq/u_idelay_dq" LOC = IODELAY_X0Y245;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[42].u_iob_dq/u_oddr_dq" LOC = OLOGIC_X0Y245;
+NET "ddr2_dq[42]" LOC = N24;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[43].u_iob_dq/u_idelay_dq" LOC = IODELAY_X0Y247;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[43].u_iob_dq/gen_stg2_sg1.u_iddr_dq" LOC = ILOGIC_X0Y247;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[43].u_iob_dq/u_oddr_dq" LOC = OLOGIC_X0Y247;
+NET "ddr2_dq[43]" LOC = P26;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[44].u_iob_dq/u_oddr_dq" LOC = OLOGIC_X0Y240;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[44].u_iob_dq/gen_stg2_sg1.u_iddr_dq" LOC = ILOGIC_X0Y240;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[44].u_iob_dq/u_idelay_dq" LOC = IODELAY_X0Y240;
+NET "ddr2_dq[44]" LOC = T24;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[45].u_iob_dq/u_oddr_dq" LOC = OLOGIC_X0Y242;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[45].u_iob_dq/gen_stg2_sg1.u_iddr_dq" LOC = ILOGIC_X0Y242;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[45].u_iob_dq/u_idelay_dq" LOC = IODELAY_X0Y242;
+NET "ddr2_dq[45]" LOC = N25;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[46].u_iob_dq/u_oddr_dq" LOC = OLOGIC_X0Y246;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[46].u_iob_dq/u_idelay_dq" LOC = IODELAY_X0Y246;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[46].u_iob_dq/gen_stg2_sg1.u_iddr_dq" LOC = ILOGIC_X0Y246;
+NET "ddr2_dq[46]" LOC = P27;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[47].u_iob_dq/gen_stg2_sg1.u_iddr_dq" LOC = ILOGIC_X0Y248;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[47].u_iob_dq/u_oddr_dq" LOC = OLOGIC_X0Y248;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[47].u_iob_dq/u_idelay_dq" LOC = IODELAY_X0Y248;
+NET "ddr2_dq[47]" LOC = N28;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[48].u_iob_dq/gen_stg2_sg1.u_iddr_dq" LOC = ILOGIC_X0Y249;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[48].u_iob_dq/u_idelay_dq" LOC = IODELAY_X0Y249;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[48].u_iob_dq/u_oddr_dq" LOC = OLOGIC_X0Y249;
+NET "ddr2_dq[48]" LOC = M28;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[49].u_iob_dq/u_idelay_dq" LOC = IODELAY_X0Y252;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[49].u_iob_dq/u_oddr_dq" LOC = OLOGIC_X0Y252;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[49].u_iob_dq/gen_stg2_sg1.u_iddr_dq" LOC = ILOGIC_X0Y252;
+NET "ddr2_dq[49]" LOC = L28;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[50].u_iob_dq/gen_stg2_sg1.u_iddr_dq" LOC = ILOGIC_X0Y265;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[50].u_iob_dq/u_oddr_dq" LOC = OLOGIC_X0Y265;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[50].u_iob_dq/u_idelay_dq" LOC = IODELAY_X0Y265;
+NET "ddr2_dq[50]" LOC = F25;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[51].u_iob_dq/u_oddr_dq" LOC = OLOGIC_X0Y267;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[51].u_iob_dq/gen_stg2_sg1.u_iddr_dq" LOC = ILOGIC_X0Y267;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[51].u_iob_dq/u_idelay_dq" LOC = IODELAY_X0Y267;
+NET "ddr2_dq[51]" LOC = H25;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[52].u_iob_dq/u_idelay_dq" LOC = IODELAY_X0Y251;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[52].u_iob_dq/gen_stg2_sg1.u_iddr_dq" LOC = ILOGIC_X0Y251;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[52].u_iob_dq/u_oddr_dq" LOC = OLOGIC_X0Y251;
+NET "ddr2_dq[52]" LOC = K27;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[53].u_iob_dq/gen_stg2_sg1.u_iddr_dq" LOC = ILOGIC_X0Y253;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[53].u_iob_dq/u_oddr_dq" LOC = OLOGIC_X0Y253;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[53].u_iob_dq/u_idelay_dq" LOC = IODELAY_X0Y253;
+NET "ddr2_dq[53]" LOC = K28;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[54].u_iob_dq/gen_stg2_sg1.u_iddr_dq" LOC = ILOGIC_X0Y266;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[54].u_iob_dq/u_oddr_dq" LOC = OLOGIC_X0Y266;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[54].u_iob_dq/u_idelay_dq" LOC = IODELAY_X0Y266;
+NET "ddr2_dq[54]" LOC = H24;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[55].u_iob_dq/gen_stg2_sg1.u_iddr_dq" LOC = ILOGIC_X0Y268;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[55].u_iob_dq/u_idelay_dq" LOC = IODELAY_X0Y268;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[55].u_iob_dq/u_oddr_dq" LOC = OLOGIC_X0Y268;
+NET "ddr2_dq[55]" LOC = G26;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[56].u_iob_dq/gen_stg2_sg1.u_iddr_dq" LOC = ILOGIC_X0Y269;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[56].u_iob_dq/u_oddr_dq" LOC = OLOGIC_X0Y269;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[56].u_iob_dq/u_idelay_dq" LOC = IODELAY_X0Y269;
+NET "ddr2_dq[56]" LOC = G25;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[57].u_iob_dq/gen_stg2_sg1.u_iddr_dq" LOC = ILOGIC_X0Y272;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[57].u_iob_dq/u_oddr_dq" LOC = OLOGIC_X0Y272;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[57].u_iob_dq/u_idelay_dq" LOC = IODELAY_X0Y272;
+NET "ddr2_dq[57]" LOC = M26;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[58].u_iob_dq/gen_stg2_sg1.u_iddr_dq" LOC = ILOGIC_X0Y275;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[58].u_iob_dq/u_idelay_dq" LOC = IODELAY_X0Y275;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[58].u_iob_dq/u_oddr_dq" LOC = OLOGIC_X0Y275;
+NET "ddr2_dq[58]" LOC = J24;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[59].u_iob_dq/u_idelay_dq" LOC = IODELAY_X0Y276;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[59].u_iob_dq/gen_stg2_sg1.u_iddr_dq" LOC = ILOGIC_X0Y276;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[59].u_iob_dq/u_oddr_dq" LOC = OLOGIC_X0Y276;
+NET "ddr2_dq[59]" LOC = L26;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[60].u_iob_dq/u_idelay_dq" LOC = IODELAY_X0Y271;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[60].u_iob_dq/gen_stg2_sg1.u_iddr_dq" LOC = ILOGIC_X0Y271;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[60].u_iob_dq/u_oddr_dq" LOC = OLOGIC_X0Y271;
+NET "ddr2_dq[60]" LOC = J27;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[61].u_iob_dq/u_idelay_dq" LOC = IODELAY_X0Y273;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[61].u_iob_dq/u_oddr_dq" LOC = OLOGIC_X0Y273;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[61].u_iob_dq/gen_stg2_sg1.u_iddr_dq" LOC = ILOGIC_X0Y273;
+NET "ddr2_dq[61]" LOC = M25;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[62].u_iob_dq/gen_stg2_sg1.u_iddr_dq" LOC = ILOGIC_X0Y277;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[62].u_iob_dq/u_oddr_dq" LOC = OLOGIC_X0Y277;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[62].u_iob_dq/u_idelay_dq" LOC = IODELAY_X0Y277;
+NET "ddr2_dq[62]" LOC = L25;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[63].u_iob_dq/u_idelay_dq" LOC = IODELAY_X0Y278;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[63].u_iob_dq/gen_stg2_sg1.u_iddr_dq" LOC = ILOGIC_X0Y278;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dq[63].u_iob_dq/u_oddr_dq" LOC = OLOGIC_X0Y278;
+NET "ddr2_dq[63]" LOC = L24;      
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_ctl_io/gen_addr[12].u_ff_addr" LOC = OLOGIC_X0Y213;
+NET "ddr2_a[12]" LOC = T31;     
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_ctl_io/gen_addr[11].u_ff_addr" LOC = OLOGIC_X0Y214;
+NET "ddr2_a[11]" LOC = R29;     
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_ctl_io/gen_addr[10].u_ff_addr" LOC = OLOGIC_X0Y226;
+NET "ddr2_a[10]" LOC = J31;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_ctl_io/gen_addr[9].u_ff_addr" LOC = OLOGIC_X0Y215;
+NET "ddr2_a[9]" LOC = R28;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_ctl_io/gen_addr[8].u_ff_addr" LOC = OLOGIC_X0Y217;
+NET "ddr2_a[8]" LOC = M31;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_ctl_io/gen_addr[7].u_ff_addr" LOC = OLOGIC_X0Y218;
+NET "ddr2_a[7]" LOC = P30;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_ctl_io/gen_addr[6].u_ff_addr" LOC = OLOGIC_X0Y219;
+NET "ddr2_a[6]" LOC = P31;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_ctl_io/gen_addr[5].u_ff_addr" LOC = OLOGIC_X0Y220;
+NET "ddr2_a[5]" LOC = L31;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_ctl_io/gen_addr[4].u_ff_addr" LOC = OLOGIC_X0Y221;
+NET "ddr2_a[4]" LOC = K31;     
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_ctl_io/gen_addr[3].u_ff_addr" LOC = OLOGIC_X0Y222;
+NET "ddr2_a[3]" LOC = P29;      
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_ctl_io/gen_addr[2].u_ff_addr" LOC = OLOGIC_X0Y223;
+NET "ddr2_a[2]" LOC = N29;      
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_ctl_io/gen_addr[1].u_ff_addr" LOC = OLOGIC_X0Y224;
+NET "ddr2_a[1]" LOC = M30;     
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_ctl_io/gen_addr[0].u_ff_addr" LOC = OLOGIC_X0Y225;
+NET "ddr2_a[0]" LOC = L30;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_ctl_io/gen_ba[1].u_ff_ba" LOC = OLOGIC_X0Y227;
+NET "ddr2_ba[1]" LOC = J30;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_ctl_io/gen_ba[0].u_ff_ba" LOC = OLOGIC_X0Y228;
+NET "ddr2_ba[0]" LOC = G31;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_ctl_io/u_ff_ras_n" LOC = OLOGIC_X0Y229;
+NET "ddr2_ras_n" LOC = H30;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_ctl_io/u_ff_cas_n" LOC = OLOGIC_X0Y232;
+NET "ddr2_cas_n" LOC = E31;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_ctl_io/u_ff_we_n" LOC = OLOGIC_X0Y230;
+NET "ddr2_we_n" LOC = K29;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_ctl_io/gen_cs_n[0].gen_cs_two_t_0.u_ff_cs_n" LOC = OLOGIC_X0Y231;
+NET "ddr2_cs_n[0]" LOC = L29;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_ctl_io/gen_odt_ddr2_ddr3.gen_odt[0].u_ff_odt" LOC = OLOGIC_X0Y233;
+NET "ddr2_odt[0]" LOC = F31;
+#Bank 15
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_ctl_io/gen_cke[0].u_ff_cke" LOC = OLOGIC_X0Y209;
+NET "ddr2_cke[0]" LOC = T28;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dm_inst.gen_dm[0].u_iob_dm/u_oddr_dm" LOC = OLOGIC_X0Y87;
+NET "ddr2_dm[0]" LOC = AJ31;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dm_inst.gen_dm[1].u_iob_dm/u_oddr_dm" LOC = OLOGIC_X0Y65;
+NET "ddr2_dm[1]" LOC = AE28;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dm_inst.gen_dm[2].u_iob_dm/u_oddr_dm" LOC = OLOGIC_X0Y75;
+NET "ddr2_dm[2]" LOC = Y24;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dm_inst.gen_dm[3].u_iob_dm/u_oddr_dm" LOC = OLOGIC_X0Y106;
+NET "ddr2_dm[3]" LOC = Y31;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dm_inst.gen_dm[4].u_iob_dm/u_oddr_dm" LOC = OLOGIC_X0Y115;
+NET "ddr2_dm[4]" LOC = V25;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dm_inst.gen_dm[5].u_iob_dm/u_oddr_dm" LOC = OLOGIC_X0Y244;
+NET "ddr2_dm[5]" LOC = P24;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dm_inst.gen_dm[6].u_iob_dm/u_oddr_dm" LOC = OLOGIC_X0Y264;
+NET "ddr2_dm[6]" LOC = F26;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dm_inst.gen_dm[7].u_iob_dm/u_oddr_dm" LOC = OLOGIC_X0Y274;
+NET "ddr2_dm[7]" LOC = J25;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dqs[0].u_iob_dqs/u_idelay_dqs" LOC = IODELAY_X0Y97;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dqs[0].u_iob_dqs/u_tri_state_dqs" LOC = OLOGIC_X0Y97;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dqs[0].u_iob_dqs/u_oddr_dqs" LOC = OLOGIC_X0Y97;
+NET "ddr2_dqs[0]" LOC = AA29;
+NET "ddr2_dqs_n[0]" LOC = AA30;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dqs[1].u_iob_dqs/u_tri_state_dqs" LOC = OLOGIC_X0Y59;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dqs[1].u_iob_dqs/u_oddr_dqs" LOC = OLOGIC_X0Y59;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dqs[1].u_iob_dqs/u_idelay_dqs" LOC = IODELAY_X0Y59;
+NET "ddr2_dqs[1]" LOC = AK28;
+NET "ddr2_dqs_n[1]" LOC = AK27;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dqs[2].u_iob_dqs/u_idelay_dqs" LOC = IODELAY_X0Y63;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dqs[2].u_iob_dqs/u_tri_state_dqs" LOC = OLOGIC_X0Y63;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dqs[2].u_iob_dqs/u_oddr_dqs" LOC = OLOGIC_X0Y63;
+NET "ddr2_dqs[2]" LOC = AK26;
+NET "ddr2_dqs_n[2]" LOC = AJ27;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dqs[3].u_iob_dqs/u_idelay_dqs" LOC = IODELAY_X0Y101;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dqs[3].u_iob_dqs/u_tri_state_dqs" LOC = OLOGIC_X0Y101;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dqs[3].u_iob_dqs/u_oddr_dqs" LOC = OLOGIC_X0Y101;
+NET "ddr2_dqs[3]" LOC = AB31;
+NET "ddr2_dqs_n[3]" LOC = AA31;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dqs[4].u_iob_dqs/u_tri_state_dqs" LOC = OLOGIC_X0Y103;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dqs[4].u_iob_dqs/u_oddr_dqs" LOC = OLOGIC_X0Y103;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dqs[4].u_iob_dqs/u_idelay_dqs" LOC = IODELAY_X0Y103;
+NET "ddr2_dqs[4]" LOC = Y28;
+NET "ddr2_dqs_n[4]" LOC = Y29;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dqs[5].u_iob_dqs/u_tri_state_dqs" LOC = OLOGIC_X0Y257;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dqs[5].u_iob_dqs/u_oddr_dqs" LOC = OLOGIC_X0Y257;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dqs[5].u_iob_dqs/u_idelay_dqs" LOC = IODELAY_X0Y257;
+NET "ddr2_dqs[5]" LOC = E26;
+NET "ddr2_dqs_n[5]" LOC = E27;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dqs[6].u_iob_dqs/u_oddr_dqs" LOC = OLOGIC_X0Y261;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dqs[6].u_iob_dqs/u_idelay_dqs" LOC = IODELAY_X0Y261;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dqs[6].u_iob_dqs/u_tri_state_dqs" LOC = OLOGIC_X0Y261;
+NET "ddr2_dqs[6]" LOC = H28;
+NET "ddr2_dqs_n[6]" LOC = G28;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dqs[7].u_iob_dqs/u_idelay_dqs" LOC = IODELAY_X0Y263;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dqs[7].u_iob_dqs/u_tri_state_dqs" LOC = OLOGIC_X0Y263;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dqs[7].u_iob_dqs/u_oddr_dqs" LOC = OLOGIC_X0Y263;
+NET "ddr2_dqs_n[7]" LOC = H27;
+NET "ddr2_dqs[7]" LOC = G27;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_ck[0].u_oddr_ck_i" LOC = OLOGIC_X0Y61;
+NET "ddr2_ck[0]" LOC = AK29;
+NET "ddr2_ck_n[0]" LOC = AJ29;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_ck[1].u_oddr_ck_i" LOC = OLOGIC_X0Y259;
+NET "ddr2_ck[1]" LOC = E28;
+NET "ddr2_ck_n[1]" LOC = F28;
+
+
+###############################################################################
+# Define multicycle paths - these paths may take longer because additional
+# time allowed for logic to settle in calibration/initialization FSM
+###############################################################################
+
+# MIG 2.1: Eliminate Timegroup definitions for CLK0, and CLK90. Instead trace
+#          multicycle paths from originating flip-flop to ANY destination
+#          flip-flop (or in some cases, it can also be a BRAM)
+# MUX Select for either rising/falling CLK0 for 2nd stage read capture
+INST "*/u_phy_calib/gen_rd_data_sel*.u_ff_rd_data_sel" TNM = "TNM_RD_DATA_SEL";
+TIMESPEC TS_MC_RD_DATA_SEL = FROM "TNM_RD_DATA_SEL" TO  FFS TS_SYS_CLK * 4;
+# MUX select for read data - optional delay on data to account for byte skews
+INST "*/u_usr_rd/gen_rden_sel_mux*.u_ff_rden_sel_mux" TNM = "TNM_RDEN_SEL_MUX";
+TIMESPEC TS_MC_RDEN_SEL_MUX = FROM "TNM_RDEN_SEL_MUX" TO  FFS TS_SYS_CLK * 4;
+# Calibration/Initialization complete status flag (for PHY logic only) - can
+# be used to drive both flip-flops and BRAMs
+INST "*/u_phy_init/u_ff_phy_init_data_sel" TNM = "TNM_PHY_INIT_DATA_SEL";
+TIMESPEC TS_MC_PHY_INIT_DATA_SEL_0 = FROM "TNM_PHY_INIT_DATA_SEL" TO  FFS TS_SYS_CLK * 4;
+TIMESPEC TS_MC_PHY_INIT_DATA_SEL_90 = FROM "TNM_PHY_INIT_DATA_SEL" TO  RAMS TS_SYS_CLK * 4;
+# Select (address) bits for SRL32 shift registers used in stage3/stage4
+# calibration
+INST "*/u_phy_calib/gen_gate_dly*.u_ff_gate_dly" TNM = "TNM_GATE_DLY";
+TIMESPEC TS_MC_GATE_DLY = FROM "TNM_GATE_DLY" TO  FFS TS_SYS_CLK * 4;
+
+INST "*/u_phy_calib/gen_rden_dly*.u_ff_rden_dly" TNM = "TNM_RDEN_DLY";
+TIMESPEC TS_MC_RDEN_DLY = FROM "TNM_RDEN_DLY" TO  FFS TS_SYS_CLK * 4;
+
+INST "*/u_phy_calib/gen_cal_rden_dly*.u_ff_cal_rden_dly" TNM = "TNM_CAL_RDEN_DLY";
+TIMESPEC TS_MC_CAL_RDEN_DLY = FROM "TNM_CAL_RDEN_DLY" TO  FFS TS_SYS_CLK * 4;
+
+############################################################################### 
+#The following constraint is added to prevent (false) hold time violations on
+#the data path from stage1 to stage2 capture flops.  Stage1 flops are clocked by 
+#the delayed DQS and stage2 flops are clocked by the clk0 clock. Placing a TIG 
+#on the DQ IDDR capture flop instance to achieve this is acceptable because timing
+#is guaranteed through the use of separate Predictable IP constraints. These
+#violations are reported when anunconstrained path report is run.	  
+############################################################################### 
+INST "*/gen_dq[*].u_iob_dq/gen*.u_iddr_dq" TIG;
+###############################################################################
+# DQS Read Post amble Glitch Squelch circuit related constraints
+###############################################################################
+
+###############################################################################
+# LOC placement of DQS-squelch related IDDR and IDELAY elements
+# Each circuit can be located at any of the following locations:
+#  1. Unused "N"-side of DQS differential pair I/O
+#  2. DM data mask (output only, input side is free for use)
+#  3. Any output-only site
+###############################################################################
+
+###############################################################################
+#The following constraint is added to avoid the HOLD violations in the trace report
+#when run for unconstrained paths.These two FF groups will be clocked by two different
+# clocks and hence there should be no timing analysis performed on this path.
+###############################################################################
+INST "*/u_mem_if_top/u_phy_top/u_phy_io/u_phy_calib/gen_gate[*].u_en_dqs_ff" TNM = "EN_DQS_FF";
+TIMESPEC TS_FROM_EN_DQS_FF_TO_DQ_CE_FF = FROM "EN_DQS_FF" TO "TNM_DQ_CE_IDDR" 3.85 ns DATAPATHONLY;
+
+# IOB_X0Y97  AA29      X0Y48    171M  
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dqs[0].u_iob_dqs/u_iddr_dq_ce" LOC = ILOGIC_X0Y96;
+# IOB_X0Y96  AA30      X0Y48    171S  *
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dqs[0].u_iob_dqs/u_iodelay_dq_ce" LOC = IODELAY_X0Y96;
+# IOB_X0Y59  AK28      X0Y29    250M  
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dqs[1].u_iob_dqs/u_iddr_dq_ce" LOC = ILOGIC_X0Y58;
+# IOB_X0Y58  AK27      X0Y29    250S  *
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dqs[1].u_iob_dqs/u_iodelay_dq_ce" LOC = IODELAY_X0Y58;
+# IOB_X0Y63  AK26      X0Y31    248M  
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dqs[2].u_iob_dqs/u_iddr_dq_ce" LOC = ILOGIC_X0Y62;
+# IOB_X0Y62  AJ27      X0Y31    248S  *
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dqs[2].u_iob_dqs/u_iodelay_dq_ce" LOC = IODELAY_X0Y62;
+# IOB_X0Y101 AB31      X0Y50    169M  
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dqs[3].u_iob_dqs/u_iddr_dq_ce" LOC = ILOGIC_X0Y100;
+# IOB_X0Y100 AA31      X0Y50    169S  *
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dqs[3].u_iob_dqs/u_iodelay_dq_ce" LOC = IODELAY_X0Y100;
+# IOB_X0Y103 Y28       X0Y51    168M  
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dqs[4].u_iob_dqs/u_iddr_dq_ce" LOC = ILOGIC_X0Y102;
+# IOB_X0Y102 Y29       X0Y51    168S  *
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dqs[4].u_iob_dqs/u_iodelay_dq_ce" LOC = IODELAY_X0Y102;
+# IOB_X0Y257 E26       X0Y128   211M  
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dqs[5].u_iob_dqs/u_iddr_dq_ce" LOC = ILOGIC_X0Y256;
+# IOB_X0Y256 E27       X0Y128   211S  *
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dqs[5].u_iob_dqs/u_iodelay_dq_ce" LOC = IODELAY_X0Y256;
+# IOB_X0Y261 H28       X0Y130   209M  
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dqs[6].u_iob_dqs/u_iddr_dq_ce" LOC = ILOGIC_X0Y260;
+# IOB_X0Y260 G28       X0Y130   209S  *
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dqs[6].u_iob_dqs/u_iodelay_dq_ce" LOC = IODELAY_X0Y260;
+# IOB_X0Y263 G27       X0Y131   208M  
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dqs[7].u_iob_dqs/u_iddr_dq_ce" LOC = ILOGIC_X0Y262;
+# IOB_X0Y262 H27       X0Y131   208S  *
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dqs[7].u_iob_dqs/u_iodelay_dq_ce" LOC = IODELAY_X0Y262;
+
+###############################################################################
+# LOC and timing constraints for flop driving DQS CE enable signal
+# from fabric logic. Even though the absolute delay on this path is
+# calibrated out (when synchronizing this output to DQS), the delay
+# should still be kept as low as possible to reduce post-calibration
+# voltage/temp variations - these are roughly proportional to the
+# absolute delay of the path.                                    
+#	The following code has been commented for V5 as the predictable IP will take 
+#	care of placement of these flops by meeting the MAXDELAY requirement.  
+#	These constraints will be removed in the next release.  
+###############################################################################
+
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/u_phy_calib/gen_gate[0].u_en_dqs_ff" BEL = AFF;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/u_phy_calib/gen_gate[0].u_en_dqs_ff" LOC = SLICE_X0Y48;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/u_phy_calib/gen_gate[1].u_en_dqs_ff" LOC = SLICE_X0Y29;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/u_phy_calib/gen_gate[1].u_en_dqs_ff" BEL = AFF;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/u_phy_calib/gen_gate[2].u_en_dqs_ff" BEL = AFF;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/u_phy_calib/gen_gate[2].u_en_dqs_ff" LOC = SLICE_X0Y31;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/u_phy_calib/gen_gate[3].u_en_dqs_ff" BEL = AFF;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/u_phy_calib/gen_gate[3].u_en_dqs_ff" LOC = SLICE_X0Y50;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/u_phy_calib/gen_gate[4].u_en_dqs_ff" BEL = AFF;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/u_phy_calib/gen_gate[4].u_en_dqs_ff" LOC = SLICE_X0Y51;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/u_phy_calib/gen_gate[5].u_en_dqs_ff" BEL = AFF;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/u_phy_calib/gen_gate[5].u_en_dqs_ff" LOC = SLICE_X0Y128;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/u_phy_calib/gen_gate[6].u_en_dqs_ff" LOC = SLICE_X0Y130;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/u_phy_calib/gen_gate[6].u_en_dqs_ff" BEL = AFF;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/u_phy_calib/gen_gate[7].u_en_dqs_ff" LOC = SLICE_X0Y131;
+INST "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/u_phy_calib/gen_gate[7].u_en_dqs_ff" BEL = AFF;
+
+# Control for DQS gate - from fabric flop. Prevent "runaway" delay -
+# two parts to this path: (1) from fabric flop to IDELAY, (2) from
+# IDELAY to asynchronous reset of IDDR that drives the DQ CE's
+# This can be relaxed by the user for lower frequencies:
+# 300MHz = 850ps, 267MHz = 900ps. At 200MHz = 950ps.
+# In general PAR should be able to route this
+# within 900ps over all speed grades.
+NET "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/en_dqs[0]" MAXDELAY = 600 ps;
+NET "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/en_dqs[1]" MAXDELAY = 600 ps;
+NET "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/en_dqs[2]" MAXDELAY = 600 ps;
+NET "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/en_dqs[3]" MAXDELAY = 600 ps;
+NET "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/en_dqs[4]" MAXDELAY = 600 ps;
+NET "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/en_dqs[5]" MAXDELAY = 600 ps;
+NET "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/en_dqs[6]" MAXDELAY = 600 ps;
+NET "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/en_dqs[7]" MAXDELAY = 600 ps;
+NET "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dqs[0].u_iob_dqs/en_dqs_sync" MAXDELAY = 850 ps;
+NET "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dqs[1].u_iob_dqs/en_dqs_sync" MAXDELAY = 850 ps;
+NET "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dqs[2].u_iob_dqs/en_dqs_sync" MAXDELAY = 850 ps;
+NET "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dqs[3].u_iob_dqs/en_dqs_sync" MAXDELAY = 850 ps;
+NET "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dqs[4].u_iob_dqs/en_dqs_sync" MAXDELAY = 850 ps;
+NET "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dqs[5].u_iob_dqs/en_dqs_sync" MAXDELAY = 850 ps;
+NET "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dqs[6].u_iob_dqs/en_dqs_sync" MAXDELAY = 850 ps;
+NET "u_system/G1.u_ddr2Interface/u_ddr2_top_0/u_mem_if_top/u_phy_top/u_phy_io/gen_dqs[7].u_iob_dqs/en_dqs_sync" MAXDELAY = 850 ps;
+
+###############################################################################
+# "Half-cycle" path constraint from IOB flip-flop to CE pin for all DQ IDDR's
+# for DQS Read Post amble Glitch Squelch circuit
+###############################################################################
+
+# Max delay from output of IOB flip-flop to CE input of DQ IDDRs =
+#  tRPST + some slack where slack account for rise-time of DQS on board.
+#  For now assume slack = 0.400ns (based on initial SPICE simulations,
+#  assumes use of ODT), so time = 0.4*Tcyc + 0.40ns = 1.6ns @333MHz
+INST "*/gen_dqs[*].u_iob_dqs/u_iddr_dq_ce" TNM = "TNM_DQ_CE_IDDR";
+INST "*/gen_dq[*].u_iob_dq/gen_stg2_*.u_iddr_dq" TNM = "TNM_DQS_FLOPS";
+TIMESPEC TS_DQ_CE = FROM "TNM_DQ_CE_IDDR" TO "TNM_DQS_FLOPS" 1.9 ns;
+
+

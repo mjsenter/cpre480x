@@ -1,0 +1,12 @@
+add wave -noupdate -divider top
+add wave sim:/*
+
+add wave -noupdate -divider graphicsPipe
+add wave -color cyan sim:/tb_SGP/u_SGP/u_graphicsPipe/*
+
+add wave -noupdate -divider host
+add wave sim:/tb_SGP/u_SGP/u_host/*
+
+
+
+

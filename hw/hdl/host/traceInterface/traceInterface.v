@@ -1,0 +1,1 @@
+link ../../../sim/traceInterface.v
