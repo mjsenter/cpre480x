@@ -113,12 +113,19 @@ begin
 		elsif(rising_edge(clk100)) then
 			if(pipeFrontData.valid = '0') then
 				cacheArbiterReq.arbReq <= '0';
-				--hostBusStall <= '0';	  		
+				hostBusStall <= '0';	  		
 			elsif(pipeFrontData.valid = '1') then
-				--hostBusStall <= '1';
+				hostBusStall <= '1';
 				cacheArbiterReq.arbReq <= '1';
 				cacheArbiterReq.cacheCmd.address <= std_logic_vector(unsigned(std_logic_vector((pipeFrontData.vertex.x + x"10000000")* 640)) + 
 																unsigned(std_logic_vector((pipeFrontData.vertex.y + x"10000000")* 512*2048)));
+				cacheArbiterReq.cacheCmd.writeData <= pipeFrontData.color;
+				cacheArbiterReq.cacheCmd.wr_en <= '1';
+				if( cacheArbiterGrant.arbGrant = '0' ) then
+					pipestall <= '1';
+				else 
+					pipestall <= '0';
+				end if;
 			end if;
 		end if;
 	end process;
