@@ -48,6 +48,30 @@ typedef struct _spiralList {
 
 spiralList * ss1;
 
+void freeSpiralPointList( spiralPointList * spl ) {
+	if( spl->next != 0 ) {
+		freeSpiralPointList( spl->next );
+	}
+	free( spl );
+}
+
+void freeSpiral( spiral *s ) {
+	int i;
+	freeSpiralPointList( s->spl );
+	for( i = 0; i < s->numColors; i++ ) {
+		free( s->colors[i] );
+	}
+	free( s->colors );
+	free( s );
+}
+
+void freeSpiralSet( spiralSet *ss ) {
+	freeSpiral( ss->s1 );
+	freeSpiral( ss->s2 );
+	freeSpiral( ss->s3 );
+	freeSpiral( ss->s4 );
+}
+
 spiralPointList * initSpiralPointList( float angleOff, float ampOff ) {
 	spiralPointList * ret = (spiralPointList *)malloc( sizeof( spiralPointList ) );
 	ret->next = 0;
@@ -132,14 +156,18 @@ spiralSet * initSpiralSet( float *origin, int type ) {
 	if( type > 1 ) {
 		dx = -1;
 	}
-	set->s1 = initSpiral( dx*.01, .001, 10, line1, 2, 1, spiralTypes[spiralType][0], 0 );
-	set->s2 = initSpiral( dx*.01, .001, 10, line2, 2, 1, spiralTypes[spiralType][1], 0 );
-	set->s3 = initSpiral( dx*.01, .001, 10, line3, 2, 1, spiralTypes[spiralType][2], 0 );
-	set->s4 = initSpiral( dx*.01, .001, 10, line4, 2, 1, spiralTypes[spiralType][3], 0 );
+	set->s1 = initSpiral( dx*.01, .001, 100, line1, 2, 1, spiralTypes[spiralType][0], 0 );
+	set->s2 = initSpiral( dx*.01, .001, 100, line2, 2, 1, spiralTypes[spiralType][1], 0 );
+	set->s3 = initSpiral( dx*.01, .001, 100, line3, 2, 1, spiralTypes[spiralType][2], 0 );
+	set->s4 = initSpiral( dx*.01, .001, 100, line4, 2, 1, spiralTypes[spiralType][3], 0 );
 	return set;
 }
 
-void resetSpiral( spiral *s ) {
+void resetSpiral( spiral *s, int totalReset ) {
+	if( totalReset ) {
+		freeSpiralPointList( s->spl );
+		s->spl = 0;
+	}
 	spiralPointList *spl = initSpiralPointList( s->angleOffset, s->ampOffset );
 	spl->next = s->spl;
 	s->spl = spl;
@@ -150,12 +178,12 @@ void resetSpiral( spiral *s ) {
 	}
 }
 
-//void resetSpiralSet( spiralSet *s ) {
-//	resetSpiral( s->s1, 0 );
-//	resetSpiral( s->s2, 0 );
-//	resetSpiral( s->s3, 0 );
-//	resetSpiral( s->s4, 0 );
-//}
+void resetSpiralSet( spiralSet *s ) {
+	resetSpiral( s->s1, 1 );
+	resetSpiral( s->s2, 1 );
+	resetSpiral( s->s3, 1 );
+	resetSpiral( s->s4, 1 );
+}
 
 void updateSpiral( spiral *s ) {
 	if( s->draw ) {
@@ -171,7 +199,7 @@ void updateSpiral( spiral *s ) {
 		s->count++;
 		if( s->count >= s->reset ) {
 			s->count = 0;
-			resetSpiral( s );
+			resetSpiral( s, 0 );
 		}
 	}
 }
@@ -252,22 +280,6 @@ void idle() {
 	}
 }
 
-void freeSpiral( spiral *s ) {
-	int i;
-	for( i = 0; i < s->numColors; i++ ) {
-		free( s->colors[i] );
-	}
-	free( s->colors );
-	free( s );
-}
-
-void freeSpiralSet( spiralSet *ss ) {
-	freeSpiral( ss->s1 );
-	freeSpiral( ss->s2 );
-	freeSpiral( ss->s3 );
-	freeSpiral( ss->s4 );
-}
-
 void mouse( int button, int state, int x, int y ) {
 	if ( state == GLUT_DOWN ) {
 		spiralList * temp = ss1;
@@ -294,9 +306,29 @@ void mouse( int button, int state, int x, int y ) {
 }
 
 void keyboard( unsigned char key, int x, int y ) {
-	spiralType++;
-	if( spiralType == 4 ) {
-		spiralType = 0;
+	spiralList * temp;
+	switch( key ) {
+		case 033:  // Escape key
+		case 'q': case 'Q':
+			exit( EXIT_SUCCESS );
+			break;
+		case 32: //Space bar
+			spiralType++;
+			if( spiralType == 4 ) {
+				spiralType = 0;
+			}
+			break;
+		case 'r': case 'R':
+			redraw = 1;
+			temp = ss1;
+			while( temp != 0 ) {
+				resetSpiralSet( temp->ss );
+				temp = temp->next;
+			}
+			break;
+		case 't': case 'T':
+			redraw = 1;
+			break;
 	}
 }
 
