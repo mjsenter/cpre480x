@@ -64,7 +64,14 @@ architecture mixed of pixelOps is
    -- Signals to interface with the hostBus. 
 	signal instrFIFORead     : instrFIFORead_t;
 	signal instrFIFOReadEn   : std_logic;
-   signal hostBusStall      : std_logic;
+   	signal hostBusStall      : std_logic;
+
+	--signals to calculon addresses
+	signal xAddOne   : std_logic_vector(63 downto 0);
+	signal yAddOne   : std_logic_vector(63 downto 0);
+	signal xTimesDim : std_logic_vector(31 downto 0);
+	signal yTimesDim : std_logic_vector(31 downto 0);
+	signal memAddr   : std_logic_vector(31 downto 0);
 
 
 begin
@@ -94,10 +101,23 @@ begin
 	
 	-- Delete this code when implementing your design. The signals below are only driven to 
 	-- make sure that other components work correctly
-	hostBusStall <='0';
-	instrFIFOReadEn <= '1';
-	cacheArbiterReq.arbReq <= '0';
-	pipeStall <= '0';
+	hostBusStall <= '0' when (pipeFrontData.valid = '0') else '1';
+	
+	instrFIFOReadEn <= not hostBusStall;
+	P1 : process(clk100, rst)
+	begin
+		if(rst = '1') then
+			hostBusStall <= '0';
+		elsif(rising_edge(clk100)) then
+			
+			cacheArbiterReq.arbReq <= '0';-- when (pipeFrontData.valid = '0') else '1';
+			cacheArbiterReq.cacheCmd.address <= memAddr;
+
+			pipeStall <= '0';
+		
+		end if;
+	end process;
+
 	-- End Delete section ======================================================================
 
 
