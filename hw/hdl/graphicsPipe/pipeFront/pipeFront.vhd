@@ -194,6 +194,7 @@ begin
 	-- flushing the queueRAM data
 	
 	-- The signals queueAddrArray and queueDataArray can be used to read from the queueRAMs
+	suck
 
 
 end mixed;
