@@ -202,15 +202,22 @@ begin
 				queueAddrArray(i) <= (others => '0');
 			end loop;
 		elsif(rising_edge(clk100)) then
-			if((opcode = x"80") and (count < queueRAMAddr)) or (queueRAMAddr = b"11111") then
-				queueAddrArray(0) <= std_logic_vector(unsigned(queueAddrArray(0)) + 1);
-				count <= std_logic_vector(unsigned(count) + 1);
-				hostBusStall <= '1';
+			if(opcode = x"80") or (queueRAMAddr = b"11111") then --We need to flush
+				if( pipestall = '0' ) then
+					if(count < queueRAMAddr) then --Continue to flush
+						queueAddrArray(0) <= std_logic_vector(unsigned(queueAddrArray(0)) + 1);
+						count <= std_logic_vector(unsigned(count) + 1);
+						hostBusStall <= '1';
+					else --We are done flushing
+						queueRAMAddr <= (others => '0');
+						hostBusStall <= '0';
+					end if;
+				end if;
 			else
 				queueAddrArray(0) <= b"00000";
 				count <= (others => '0');
 				hostBusStall <= '0';
-				pipeFrontData.valid    <=  '0';
+				pipeFrontData.valid <= '0';
 			end if;
 		end if;
 	end process;
