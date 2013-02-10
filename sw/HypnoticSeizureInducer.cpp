@@ -6,19 +6,25 @@
 #define PI 3.14159265
 #define DEG2RAD (PI/180.0)
 
+//Different initial phases for the four spirals in a set.  
 int spiralTypes[4][4] = { { 0, 90, 180, 270 }, { 0, 30, 60, 90 }, { 0, -90, -180, -270 }, { 0, -30, -60, -90 } };
+
+//Index into spiralTypes used for next spiralSet created
 int spiralType = 0;
 
+//An individual point within a spiral to be drawn
 typedef struct _spiralPoint {
-	float amp;
+	float amp; //Distance from center point
 	float angle;
 } spiralPoint;
 
+//A linked list of all the spiralPoints within a spiral
 typedef struct _spiralPointList {
 	_spiralPointList * next;
 	spiralPoint * point;
 } spiralPointList;
 
+//An individual spiral within a set
 typedef struct _spiral {
 	spiralPointList *spl;
 	float dx;
@@ -33,6 +39,7 @@ typedef struct _spiral {
 	float ampOffset;
 } spiral;
 
+//A set of spirals drawn from an origin
 typedef struct _spiralSet {
 	spiral * s1;
 	spiral * s2;
@@ -41,6 +48,7 @@ typedef struct _spiralSet {
 	float center[2];
 } spiralSet;
 
+//Linked list of all the spiralSets
 typedef struct _spiralList {
 	struct _spiralList *next;
 	spiralSet * ss;
@@ -98,6 +106,8 @@ spiral * initSpiral( float dx, float damp, int reset, float **colors, int numCol
 }
 
 spiralSet * initSpiralSet( float *origin, int type ) {
+
+	//List of colors for each spiral in a set
 	float **line1 = (float**)malloc( sizeof( float* ) * 2 );
 	line1[0] = (float*)malloc( sizeof( float ) * 3 );
 	line1[1] = (float*)malloc( sizeof( float ) * 3 );
