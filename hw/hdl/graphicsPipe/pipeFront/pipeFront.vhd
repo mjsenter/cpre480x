@@ -91,6 +91,10 @@ architecture mixed of pipeFront is
    -- 8-bit opcode for individual instructions
 	signal opCode : std_logic_vector(7 downto 0);
 	
+	--counter for flush
+	type counter is range 0 to 32;
+	
+	signal count : counter := (others => 0);
 	
 
 begin
@@ -112,7 +116,7 @@ begin
 
 
    -- For now, we should stall the hostBus when flushing the queueRAMs.
-   hostBusStall <= '0';
+   hostBusStall <= '1' when (opcode = x"80") else '0';
 
    -- Do not read next instruction while processing the current one
 	instrFIFOReadEn <= not hostBusStall;
@@ -194,9 +198,46 @@ begin
 	-- flushing the queueRAM data
 	
 	-- The signals queueAddrArray and queueDataArray can be used to read from the queueRAMs
-	suck
+	process(clk100, rst)
+	begin
+		if(rst = '1') then
+			queueAddrArray <= (others => '0');
+		elsif(rising_edge(clk100)) then
+			if((opcode = x"80") and (count < queueRAMAddr)) or (queueRAMAddr = b"11111") then
+				queueAddrArray(0) <= std_logic_vector(unsigned(queueAddrArray(0)) + 1);
+				count <= count + 1;
+				hostBusStall <= '1';
+			else
+				queueAddrArray(0) <= b"00000";
+				count <= 0;
+				hostBusStall <= '0';
+				pipeFrontData.valid    <=  '0';
+			end if;
+		end if;
+	end process;
 
-
+	process(clk100, rst)
+	begin
+		if(rst = '1') then
+			queueAddrArray <= (others => '0');
+		elsif(rising_edge(clk100)) then
+			for i in 1 to SGP_VERTEX_QUEUES-1 loop
+				queueAddrArray(i) <= queueAddrArray(0);
+			end loop;
+			
+			pipeFrontData.color    <= queueDataArray(1);
+			pipeFrontData.vertex.x (63 downto 32 )<= queueDataArray(2);
+			pipeFrontData.vertex.x (31 downto  0 )<= queueDataArray(3);
+			pipeFrontData.vertex.y (63 downto 32 )<= queueDataArray(4);
+			pipeFrontData.vertex.y (31 downto  0 )<= queueDataArray(5);
+			pipeFrontData.vertex.z (63 downto 32 )<= queueDataArray(6);
+			pipeFrontData.vertex.z (31 downto  0 )<= queueDataArray(7);
+			pipeFrontData.vertex.w (63 downto 32 )<= (others => 0);
+			pipeFrontData.vertex.w (31 downto  0 )<= x"00000001";
+			pipeFrontData.valid    <=  '1';
+		end if;
+	end process;
+	
 end mixed;
 
 
