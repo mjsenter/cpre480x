@@ -113,7 +113,7 @@ begin
 
 
    -- For now, we should stall the hostBus when flushing the queueRAMs.
-   hostBusStall <= '1' when (opcode = x"80") else '0';
+   --hostBusStall <= '1' when (opcode = x"80") else '0';
 
    -- Do not read next instruction while processing the current one
 	instrFIFOReadEn <= not hostBusStall;
@@ -197,20 +197,17 @@ begin
 	-- The signals queueAddrArray and queueDataArray can be used to read from the queueRAMs
 	process(clk100, rst)
 	begin
-		if(rst = '1') then
-			for i in 0 to 4 loop
-				queueAddrArray(i) <= (others => '0');
-			end loop;
-		elsif(rising_edge(clk100)) then
+		if(rising_edge(clk100)) then
 			if(opcode = x"80") or (queueRAMAddr = b"11111") then --We need to flush
 				if( pipestall = '0' ) then
 					if(count < queueRAMAddr) then --Continue to flush
 						queueAddrArray(0) <= std_logic_vector(unsigned(queueAddrArray(0)) + 1);
 						count <= std_logic_vector(unsigned(count) + 1);
 						hostBusStall <= '1';
+						pipeFrontData.valid <= '0';
 					else --We are done flushing
-						queueRAMAddr <= (others => '0');
 						hostBusStall <= '0';
+						pipeFrontData.valid <= '0';
 					end if;
 				end if;
 			else
@@ -229,8 +226,9 @@ begin
 				queueAddrArray(i) <= (others => '0');
 			end loop;
 		elsif(rising_edge(clk100)) then
-			for i in 1 to SGP_VERTEX_QUEUES-1 loop
-				queueAddrArray(i) <= queueAddrArray(0);
+			queueAddrArray(1) <= queueDataArray(0) (4 downto 0);
+			for i in 2 to SGP_VERTEX_QUEUES-1 loop
+				queueAddrArray(i) <= queueDataArray(0) (20 downto 16);
 			end loop;
 			
 			pipeFrontData.color    <= unsigned(queueDataArray(1));
@@ -242,7 +240,7 @@ begin
 			pipeFrontData.vertex.z (31 downto  0 )<= signed(queueDataArray(7));
 			pipeFrontData.vertex.w (63 downto 32 )<= x"00000000";
 			pipeFrontData.vertex.w (31 downto  0 )<= x"00000001";
-			pipeFrontData.valid    <=  '1';
+			--pipeFrontData.valid    <=  '1';
 		end if;
 	end process;
 	
