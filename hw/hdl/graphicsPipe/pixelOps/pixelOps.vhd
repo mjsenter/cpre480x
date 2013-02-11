@@ -65,7 +65,13 @@ architecture mixed of pixelOps is
 	signal instrFIFORead     : instrFIFORead_t;
 	signal instrFIFOReadEn   : std_logic;
    signal hostBusStall      : std_logic;
-
+	
+	type state_type is ( S1, S2 );
+	signal state : state_type;
+	
+	signal x : std_logic_vector( 10 downto 0 );
+	signal y : std_logic_vector( 9 downto 0 );
+	signal c : std_logic_vector( 31 downto 0 );
 
 
 begin
@@ -103,27 +109,38 @@ begin
 	P1 : process(clk100, rst)
 	begin
 		if(rst = '1') then
+			state <= S1;
 			cacheArbiterReq.arbReq <= '0';
 			cacheArbiterReq.cacheCmd.address <= (others => '0');
 			cacheArbiterReq.cacheCmd.writeData <= (others => '0');
 			cacheArbiterReq.cacheCmd.wr_en <= '0';
 			pipeStall <= '0';
 		elsif(rising_edge(clk100)) then
-			if(pipeFrontData.valid = '0') then
-				cacheArbiterReq.arbReq <= '0';
-				pipestall <= '0'; 
-			elsif(pipeFrontData.valid = '1') then
-				cacheArbiterReq.arbReq <= '1';
-				cacheArbiterReq.cacheCmd.address <= std_logic_vector(unsigned(pipeFrontData.vertex.x(63 downto 32)) + 
-																					  unsigned((pipeFrontData.vertex.y(63 downto 32)) srl 11));
-				cacheArbiterReq.cacheCmd.writeData <= std_logic_vector(pipeFrontData.color);
-				cacheArbiterReq.cacheCmd.wr_en <= '1';
-				if( cacheArbiterGrant.arbGrant = '0' ) then 
-					pipestall <= '1';
-				else 
-					pipestall <= '0';
-				end if;
-			end if;
+			case state is 
+				when S1 =>
+					cacheArbiterReq.cacheCmd.wr_en <= '0';
+					if(pipeFrontData.valid = '0') then
+						cacheArbiterReq.arbReq <= '0';
+						pipestall <= '0';
+					elsif(pipeFrontData.valid = '1') then
+						x <= std_logic_vector(pipeFrontData.vertex.x(42 downto 32));
+						y <= std_logic_vector(pipeFrontData.vertex.y(41 downto 32));
+						c <= std_logic_vector(pipeFrontData.color);
+						pipestall <= '1';
+						state <= S2;
+					end if;
+				when S2 =>
+					cacheArbiterReq.arbReq <= '1';
+					cacheArbiterReq.cacheCmd.address <= std_logic_vector(b"00000000000" & 
+																	unsigned(y) & unsigned(x));
+					cacheArbiterReq.cacheCmd.writeData <= std_logic_vector(c);
+					
+					if( cacheArbiterGrant.arbGrant = '1' ) then 
+						cacheArbiterReq.cacheCmd.wr_en <= '1';
+						--pipestall <= '0';
+						state <= S1;
+					end if;
+			end case;
 		end if;
 	end process;
 	
