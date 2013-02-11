@@ -65,13 +65,7 @@ architecture mixed of pixelOps is
 	signal instrFIFORead     : instrFIFORead_t;
 	signal instrFIFOReadEn   : std_logic;
    signal hostBusStall      : std_logic;
-	
-	--signals to calculon addresses
-	signal xAddOne   : std_logic_vector(63 downto 0);
-	signal yAddOne   : std_logic_vector(63 downto 0);
-	signal xTimesDim : std_logic_vector(31 downto 0);
-	signal yTimesDim : std_logic_vector(31 downto 0);
-	signal memAddr   : std_logic_vector(31 downto 0);
+
 
 
 begin
@@ -102,24 +96,23 @@ begin
 	-- Delete this code when implementing your design. The signals below are only driven to 
 	-- make sure that other components work correctly
 	hostBusStall <= '0';
+	cacheArbiterReq.cacheCmd.flush <= '0';
+	cacheArbiterReq.cacheCmd.rd_en <= '0';
 	
 --	instrFIFOReadEn <= not hostBusStall;
 	P1 : process(clk100, rst)
 	begin
 		if(rst = '1') then
-			--hostBusStall <= '0';
 			cacheArbiterReq.arbReq <= '0';
 			cacheArbiterReq.cacheCmd.address <= (others => '0');
 			cacheArbiterReq.cacheCmd.writeData <= (others => '0');
-			cacheArbiterReq.cacheCmd.wr_en <= '1';
+			cacheArbiterReq.cacheCmd.wr_en <= '0';
 			pipeStall <= '0';
 		elsif(rising_edge(clk100)) then
 			if(pipeFrontData.valid = '0') then
 				cacheArbiterReq.arbReq <= '0';
-				--hostBusStall <= '0';	
 				pipestall <= '0'; 
 			elsif(pipeFrontData.valid = '1') then
-				--hostBusStall <= '1';
 				cacheArbiterReq.arbReq <= '1';
 				cacheArbiterReq.cacheCmd.address <= std_logic_vector(unsigned(pipeFrontData.vertex.x(63 downto 32)) + 
 																					  unsigned((pipeFrontData.vertex.y(63 downto 32)) srl 11));
@@ -133,18 +126,6 @@ begin
 			end if;
 		end if;
 	end process;
-
---	P2 : process(clk100)
---	begin
---		if(rising_edge(clk100)) then
---			xAddOne <= std_logic_vector((pipeFrontData.vertex.x + x"10000000")* 640);
---			yAddOne <= std_logic_vector((pipeFrontData.vertex.y + x"10000000")* 512);
---			xTimesDim <= std_logic_vector(unsigned(xAddOne) * 640);
---			yTimesDim <= std_logic_vector(unsigned(yAddOne) * 512);
---			memAddr <= std_logic_vector(unsigned(std_logic_vector((pipeFrontData.vertex.x + x"10000000")* 640)) + 
---						  unsigned(std_logic_vector((pipeFrontData.vertex.y + x"10000000")* 512*2048)));
---		end if;	
---	end process;
 	
 end mixed;
 
