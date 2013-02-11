@@ -94,7 +94,7 @@ architecture mixed of pipeFront is
 	--counter for flush
 	signal count : std_logic_vector(4 downto 0);
 	
-	type state_type is ( S1, S2, S3 );
+	type state_type is ( S1, S2, S3, S4, S5 );
 	signal state : state_type;
 	
 	signal len : std_logic_vector( 4 downto 0 );
@@ -210,27 +210,36 @@ begin
 		elsif(rising_edge(clk100)) and ( pipestall = '0' ) then
 			case state is 
 				when S1 =>
+					pipeFrontData.valid    <=  '0';
 					if(opcode = x"80") and (done = '0') then
 						hostBusStall <= '1';
 						count <= (others => '0');
 						queueAddrArray(0) <= b"00001";
 						len <= queueDataArray(0)(16 downto 12);
+						
 						state <= S2;
 					else 
 						if ( opcode /= x"80" ) then
 							done <= '0';
 						end if;
-						pipeFrontData.valid    <=  '0';
 						hostBusStall <= '0';
 					end if;
-				when S2 => 
+				when S2 =>
+						pipeFrontData.valid    <=  '0';
+						state <= S3;
+					
+				when S3 => 
 					queueAddrArray(1) <= std_logic_vector(unsigned(queueDataArray(0) (4 downto 0)) + 2);
 					for i in 2 to SGP_VERTEX_QUEUES-1 loop
-						queueAddrArray(i) <= std_logic_vector(unsigned(queueDataArray(0) (9 downto 5)) + 2);
+						queueAddrArray(i) <= std_logic_vector(unsigned(queueDataArray(0) (9 downto 5)));
 					end loop;
 					pipeFrontData.valid    <=  '0';
-					state <= S3;
-				when S3 =>
+					state <= S4;
+					
+				when S4 =>
+					state <= S5;
+					
+				when S5 =>
 					pipeFrontData.color    <= unsigned(queueDataArray(1));
 					pipeFrontData.vertex.x (63 downto 32 )<= signed(queueDataArray(2));
 					pipeFrontData.vertex.x (31 downto  0 )<= signed(queueDataArray(3));
@@ -242,7 +251,7 @@ begin
 					pipeFrontData.vertex.w (31 downto  0 )<= x"00000001";
 					pipeFrontData.valid    <=  '1';
 					
-					if( unsigned(count) < (unsigned(len)-1) ) then 
+					if( unsigned(count) < (unsigned(len)-2) ) then 
 						queueAddrArray(0) <= std_logic_vector(unsigned(queueAddrArray(0)) + 1);
 						count <= std_logic_vector(unsigned(count) + 1);
 						state <= S2;
@@ -251,6 +260,7 @@ begin
 						done <= '1';
 						hostBusStall <= '0';
 					end if;
+					
 				end case;
 		end if;
 	end process;
