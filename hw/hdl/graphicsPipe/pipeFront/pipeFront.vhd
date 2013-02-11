@@ -92,7 +92,7 @@ architecture mixed of pipeFront is
 	signal opCode : std_logic_vector(7 downto 0);
 	
 	--counter for flush
-	signal count : std_logic_vector(32 downto 0);
+	signal count : std_logic_vector(4 downto 0);
 
 begin
 
@@ -197,14 +197,19 @@ begin
 	-- The signals queueAddrArray and queueDataArray can be used to read from the queueRAMs
 	process(clk100, rst)
 	begin
-		if(rising_edge(clk100)) then
+		if(rst = '1') then
+			queueAddrArray(0) <= b"00000";
+			count <= (others => '0');
+			hostBusStall <= '0';
+			pipeFrontData.valid <= '0';
+		elsif(rising_edge(clk100)) then
 			if(opcode = x"80") or (queueRAMAddr = b"11111") then --We need to flush
 				if( pipestall = '0' ) then
-					if(count < queueRAMAddr) then --Continue to flush
+					if(unsigned(count) < unsigned(queueRAMAddr)) then --Continue to flush
 						queueAddrArray(0) <= std_logic_vector(unsigned(queueAddrArray(0)) + 1);
 						count <= std_logic_vector(unsigned(count) + 1);
 						hostBusStall <= '1';
-						pipeFrontData.valid <= '0';
+						pipeFrontData.valid <= '1';
 					else --We are done flushing
 						hostBusStall <= '0';
 						pipeFrontData.valid <= '0';
@@ -222,7 +227,7 @@ begin
 	process(clk100, rst)
 	begin
 		if(rst = '1') then
-			for i in 0 to 4 loop
+			for i in 1 to 4 loop
 				queueAddrArray(i) <= (others => '0');
 			end loop;
 		elsif(rising_edge(clk100)) then
