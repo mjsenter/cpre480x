@@ -214,7 +214,7 @@ begin
 						hostBusStall <= '1';
 						count <= (others => '0');
 						queueAddrArray(0) <= b"00001";
-						len <= queueDataArray(0)(16 down to 12);
+						len <= queueDataArray(0)(16 downto 12);
 						state <= S2;
 					else 
 						if ( opcode /= x"80" ) then
@@ -224,10 +224,11 @@ begin
 						hostBusStall <= '0';
 					end if;
 				when S2 => 
-					queueAddrArray(1) <= std_logic_vector(unsigned(queueDataArray(0) (4 downto 0)) + 1);
+					queueAddrArray(1) <= std_logic_vector(unsigned(queueDataArray(0) (4 downto 0)) + 2);
 					for i in 2 to SGP_VERTEX_QUEUES-1 loop
-						queueAddrArray(i) <= std_logic_vector(unsigned(queueDataArray(0) (9 downto 5)) + 1);
+						queueAddrArray(i) <= std_logic_vector(unsigned(queueDataArray(0) (9 downto 5)) + 2);
 					end loop;
+					pipeFrontData.valid    <=  '0';
 					state <= S3;
 				when S3 =>
 					pipeFrontData.color    <= unsigned(queueDataArray(1));
@@ -241,7 +242,7 @@ begin
 					pipeFrontData.vertex.w (31 downto  0 )<= x"00000001";
 					pipeFrontData.valid    <=  '1';
 					
-					if( unsigned(count) < unsigned(len) ) then 
+					if( unsigned(count) < (unsigned(len)-1) ) then 
 						queueAddrArray(0) <= std_logic_vector(unsigned(queueAddrArray(0)) + 1);
 						count <= std_logic_vector(unsigned(count) + 1);
 						state <= S2;
