@@ -93,6 +93,9 @@ architecture mixed of pipeFront is
 	
 	--counter for flush
 	signal count : std_logic_vector(4 downto 0);
+	
+	type state_type is ( S1, S2, S3 );
+	signal state : state_type;
 
 begin
 
@@ -195,57 +198,78 @@ begin
 	-- flushing the queueRAM data
 	
 	-- The signals queueAddrArray and queueDataArray can be used to read from the queueRAMs
-	process(clk100, rst)
-	begin
-		if(rst = '1') then
-			queueAddrArray(0) <= b"00000";
-			count <= (others => '0');
-			hostBusStall <= '0';
-			pipeFrontData.valid <= '0';
-		elsif(rising_edge(clk100)) then
-			if(opcode = x"80") or (queueRAMAddr = b"11111") then --We need to flush
-				if( pipestall = '0' ) then
-					if(unsigned(count) < unsigned(queueRAMAddr)) then --Continue to flush
-						queueAddrArray(0) <= std_logic_vector(unsigned(queueAddrArray(0)) + 1);
-						count <= std_logic_vector(unsigned(count) + 1);
-						hostBusStall <= '1';
-						pipeFrontData.valid <= '1';
-					else --We are done flushing
-						hostBusStall <= '0';
-						pipeFrontData.valid <= '0';
-					end if;
-				end if;
-			else
-				queueAddrArray(0) <= b"00000";
-				count <= (others => '0');
-				hostBusStall <= '0';
-				pipeFrontData.valid <= '0';
-			end if;
-		end if;
-	end process;
+--	queueAddrArray(0) <= (others => '0');
+--	process(clk100, rst)
+--	begin
+--		if(rst = '1') then
+--			--queueAddrArray(0) <= (others => '0');
+--			count <= (others => '0');
+--			hostBusStall <= '0';
+--			pipeFrontData.valid <= '0';
+--		elsif(rising_edge(clk100)) and ( pipestall = '0' ) then
+--			if((opcode = x"80") or (queueRAMAddr = b"11111")) and (unsigned(count) < unsigned(queueRAMAddr)) then --We need to flush
+--				--queueAddrArray(0) <= std_logic_vector(unsigned(queueAddrArray(0)) + 1);
+--				count <= std_logic_vector(unsigned(count) + 1);
+--				hostBusStall <= '1';
+--				pipeFrontData.valid <= '1';
+--			else
+--				--queueAddrArray(0) <= (others => '0');
+--				count <= (others => '0');
+--				hostBusStall <= '0';
+--				pipeFrontData.valid <= '0';
+--			end if;
+--		end if;
+--	end process;
 
 	process(clk100, rst)
 	begin
 		if(rst = '1') then
-			for i in 1 to 4 loop
+			state <= S1;
+			hostBusStall <= '0';
+			count <= (others => '0');
+			for i in 0 to 4 loop
 				queueAddrArray(i) <= (others => '0');
 			end loop;
-		elsif(rising_edge(clk100)) then
-			queueAddrArray(1) <= queueDataArray(0) (4 downto 0);
-			for i in 2 to SGP_VERTEX_QUEUES-1 loop
-				queueAddrArray(i) <= queueDataArray(0) (20 downto 16);
-			end loop;
-			
-			pipeFrontData.color    <= unsigned(queueDataArray(1));
-			pipeFrontData.vertex.x (63 downto 32 )<= signed(queueDataArray(2));
-			pipeFrontData.vertex.x (31 downto  0 )<= signed(queueDataArray(3));
-			pipeFrontData.vertex.y (63 downto 32 )<= signed(queueDataArray(4));
-			pipeFrontData.vertex.y (31 downto  0 )<= signed(queueDataArray(5));
-			pipeFrontData.vertex.z (63 downto 32 )<= signed(queueDataArray(6));
-			pipeFrontData.vertex.z (31 downto  0 )<= signed(queueDataArray(7));
-			pipeFrontData.vertex.w (63 downto 32 )<= x"00000000";
-			pipeFrontData.vertex.w (31 downto  0 )<= x"00000001";
-			--pipeFrontData.valid    <=  '1';
+		elsif(rising_edge(clk100)) and ( pipestall = '0' ) then
+			case state is 
+				when S1 =>
+					if( opcode = x"80") or (queueRAMAddr = b"11111") then
+						hostBusStall <= '1';
+						count <= (others => '0');
+						queueAddrArray(0) <= b"00001";
+						state <= S2;
+					else 
+						pipeFrontData.valid    <=  '0';
+						hostBusStall <= '0';
+					end if;
+				when S2 => 
+					queueAddrArray(1) <= std_logic_vector(unsigned(queueDataArray(0) (4 downto 0)) + 1);
+					for i in 2 to SGP_VERTEX_QUEUES-1 loop
+						queueAddrArray(i) <= std_logic_vector(unsigned(queueDataArray(0) (20 downto 16)) + 1);
+					end loop;
+					state <= S3;
+				when S3 =>
+					pipeFrontData.color    <= unsigned(queueDataArray(1));
+					pipeFrontData.vertex.x (63 downto 32 )<= signed(queueDataArray(2));
+					pipeFrontData.vertex.x (31 downto  0 )<= signed(queueDataArray(3));
+					pipeFrontData.vertex.y (63 downto 32 )<= signed(queueDataArray(4));
+					pipeFrontData.vertex.y (31 downto  0 )<= signed(queueDataArray(5));
+					pipeFrontData.vertex.z (63 downto 32 )<= signed(queueDataArray(6));
+					pipeFrontData.vertex.z (31 downto  0 )<= signed(queueDataArray(7));
+					pipeFrontData.vertex.w (63 downto 32 )<= x"00000000";
+					pipeFrontData.vertex.w (31 downto  0 )<= x"00000001";
+					pipeFrontData.valid    <=  '1';
+					
+					if( unsigned(count) < unsigned(queueRAMAddr) ) then 
+						queueAddrArray(0) <= std_logic_vector(unsigned(queueAddrArray(0)) + 1);
+						count <= std_logic_vector(unsigned(count) + 1);
+						state <= S2;
+					else 
+						state <= S1;
+						hostBusStall <= '0';
+					end if;
+				
+				end case;
 		end if;
 	end process;
 	
