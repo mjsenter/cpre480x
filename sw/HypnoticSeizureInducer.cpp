@@ -6,25 +6,64 @@
 #define PI 3.14159265
 #define DEG2RAD (PI/180.0)
 
-//Different initial phases for the four spirals in a set.  
 int spiralTypes[4][4] = { { 0, 90, 180, 270 }, { 0, 30, 60, 90 }, { 0, -90, -180, -270 }, { 0, -30, -60, -90 } };
-
-//Index into spiralTypes used for next spiralSet created
 int spiralType = 0;
 
-//An individual point within a spiral to be drawn
+typedef struct _transform {
+	float mat[4][4];
+} transform;
+
+transform * translate( float x, float y, float z ) {
+	transform * ret = (transform *)malloc( sizeof( transform ) );
+	for( int i = 0; i < 4; i++ ) {
+		for( int j = 0; j < 4; j++ ) {
+			ret->mat[i][j] = 0;
+		}
+	}
+	ret->mat[0][0] = 1;
+	ret->mat[1][1] = 1;
+	ret->mat[2][2] = 1;
+	ret->mat[3][3] = 1;
+	ret->mat[0][3] = x;
+	ret->mat[1][3] = y;
+	ret->mat[2][3] = z;
+	return ret;
+}
+
+transform * rotateZ( float angle ) {
+	transform * ret = (transform *)malloc( sizeof( transform ) );
+	for( int i = 0; i < 4; i++ ) {
+		for( int j = 0; j < 4; j++ ) {
+			ret->mat[i][j] = 0;
+		}
+	}
+	ret->mat[3][3] = 1;
+	ret->mat[0][0] = ret->mat[1][1] = cos( angle * (PI/180.0) );
+	ret->mat[0][1] = -sin( angle * (PI/180.0) );
+	ret->mat[1][0] = sin( angle * (PI/180.0) );
+	return ret;
+}
+
+transform * multTrans( transform * A, transform * B ) {
+	transform * ret = (transform *)malloc( sizeof( transform ) );
+	for( int i = 0; i < 4; i++ ) {
+		for( int j = 0; j < 4; j++ ) {
+			ret->mat[i][j] = A->mat[i][0] * B->mat[0][j] + A->mat[i][1] * B->mat[1][j] + A->mat[i][2] * B->mat[2][j] + A->mat[i][3] * B->mat[3][j];
+		}
+	}
+	return ret;
+}
+
 typedef struct _spiralPoint {
-	float amp; //Distance from center point
+	float amp;
 	float angle;
 } spiralPoint;
 
-//A linked list of all the spiralPoints within a spiral
 typedef struct _spiralPointList {
 	_spiralPointList * next;
 	spiralPoint * point;
 } spiralPointList;
 
-//An individual spiral within a set
 typedef struct _spiral {
 	spiralPointList *spl;
 	float dx;
@@ -39,7 +78,6 @@ typedef struct _spiral {
 	float ampOffset;
 } spiral;
 
-//A set of spirals drawn from an origin
 typedef struct _spiralSet {
 	spiral * s1;
 	spiral * s2;
@@ -48,7 +86,6 @@ typedef struct _spiralSet {
 	float center[2];
 } spiralSet;
 
-//Linked list of all the spiralSets
 typedef struct _spiralList {
 	struct _spiralList *next;
 	spiralSet * ss;
@@ -106,8 +143,6 @@ spiral * initSpiral( float dx, float damp, int reset, float **colors, int numCol
 }
 
 spiralSet * initSpiralSet( float *origin, int type ) {
-
-	//List of colors for each spiral in a set
 	float **line1 = (float**)malloc( sizeof( float* ) * 2 );
 	line1[0] = (float*)malloc( sizeof( float ) * 3 );
 	line1[1] = (float*)malloc( sizeof( float ) * 3 );
@@ -166,10 +201,10 @@ spiralSet * initSpiralSet( float *origin, int type ) {
 	if( type > 1 ) {
 		dx = -1;
 	}
-	set->s1 = initSpiral( dx*.01, .001, 100, line1, 2, 1, spiralTypes[spiralType][0], 0 );
-	set->s2 = initSpiral( dx*.01, .001, 100, line2, 2, 1, spiralTypes[spiralType][1], 0 );
-	set->s3 = initSpiral( dx*.01, .001, 100, line3, 2, 1, spiralTypes[spiralType][2], 0 );
-	set->s4 = initSpiral( dx*.01, .001, 100, line4, 2, 1, spiralTypes[spiralType][3], 0 );
+	set->s1 = initSpiral( dx*.01, .001, 10, line1, 2, 1, spiralTypes[spiralType][0], 0 );
+	set->s2 = initSpiral( dx*.01, .001, 10, line2, 2, 1, spiralTypes[spiralType][1], 0 );
+	set->s3 = initSpiral( dx*.01, .001, 10, line3, 2, 1, spiralTypes[spiralType][2], 0 );
+	set->s4 = initSpiral( dx*.01, .001, 10, line4, 2, 1, spiralTypes[spiralType][3], 0 );
 	return set;
 }
 
@@ -232,15 +267,29 @@ void drawSpiral( spiral * s, float center[2] ) {
 	if( s->draw ) {
 		spiralPointList * temp = s->spl;
 		while( temp != 0 ) {
-			glLoadIdentity();
-			glTranslatef( center[0], center[1], 0 );
-			glRotatef( temp->point->angle, 0, 0, 10 );
-			glTranslatef( 0, temp->point->amp, 0 );
+			transform * t1 = translate( center[0], center[1], 0 );
+			transform * r = rotateZ( temp->point->angle );
+			transform * t2 = translate( 0, temp->point->amp, 0 );
+
+			transform * v = multTrans( t1, multTrans( r, t2 ) );
+
+			v->mat[0][3] += 1;
+			v->mat[1][3] += 1;
+
+			v->mat[0][3] /= 2;
+			v->mat[1][3] /= 2;
+
+			v->mat[0][3] *= 1280;
+			v->mat[1][3] *= 1024;
 
 			glBegin( GL_POINTS );
 			glColor3fv( s->colors[s->colorIndex] );
-			glVertex3f( 0, 0, 0 );
+			glVertex3i( v->mat[0][3], v->mat[1][3], 0 );
 			glEnd();
+			free( t1 );
+			free( r );
+			free( t2 );
+			free( v );
 			temp = temp->next;
 		}
 	}
@@ -272,6 +321,10 @@ void init() {
 	ss1 = (spiralList *)malloc( sizeof( spiralList ) );
 	ss1->next = 0;
 	ss1->ss = initSpiralSet( center, spiralType );
+	glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glOrtho(0, 1279, 1023, 0, -1, 1);
+    glPointSize(1.0f);
 }
 
 void idle() {
@@ -304,7 +357,7 @@ void mouse( int button, int state, int x, int y ) {
 				} while( temp != 0 );
 
 			case GLUT_LEFT_BUTTON:
-				float center[] = { (float)x/(float)glutGet(GLUT_WINDOW_WIDTH) * 2 - 1.0, (float)y/(float)glutGet(GLUT_WINDOW_HEIGHT) * -2 + 1.0 };
+				float center[] = { (float)x/(float)glutGet(GLUT_WINDOW_WIDTH) * 2 - 1.0, (float)y/(float)glutGet(GLUT_WINDOW_HEIGHT) * 2 - 1.0 };
 				spiralList * n = (spiralList *)malloc( sizeof( spiralList ) );
 				n->next = ss1;
 				n->ss = initSpiralSet( center, spiralType );
@@ -345,8 +398,8 @@ void keyboard( unsigned char key, int x, int y ) {
 int main(int argc, char **argv)
 {
 	glutInit(&argc, argv);
-	glutInitDisplayMode( GLUT_RGBA );
-	glutInitWindowSize(512, 512);
+	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+   glutInitWindowSize(1280, 1024);
 	glutCreateWindow("Example 0");
 
 	init();
